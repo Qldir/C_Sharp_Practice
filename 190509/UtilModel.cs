@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace _0509_Chapter3.Models
+namespace Chapter04_0509.Models
 {
     class UtilModel
     {
