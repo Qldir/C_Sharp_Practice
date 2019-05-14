@@ -21,6 +21,7 @@ namespace CalcApp
                 new KeyPressEventHandler(GetKeyPress);
         }
 
+
         //Key Pressed Event
         private void GetKeyPress(object sender, KeyPressEventArgs e)
         {
@@ -78,10 +79,6 @@ namespace CalcApp
                     btnDot.PerformClick();
                     break;
             }
-
-
-
-
         }//getKeyPress
 
 
@@ -128,7 +125,7 @@ namespace CalcApp
                         break;
                 }
 
-                calcEngine.NumAppend(numValue);
+                CalcEngine.NumAppend(numValue);
                 UpdateResult();
 
             }
@@ -138,7 +135,7 @@ namespace CalcApp
         // TxtResult Update Function
         private void UpdateResult()
         {
-
+            txtResult.Text = Convert.ToString(CalcEngine.GetResult());
         }
 
 
