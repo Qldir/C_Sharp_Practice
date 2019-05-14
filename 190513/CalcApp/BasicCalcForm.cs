@@ -10,21 +10,19 @@ using System.Windows.Forms;
 
 namespace CalcApp
 {
-    public partial class calcForm : Form
+    public partial class CalcForm : Form
     {
-        public calcForm()
+        public CalcForm()
         {
             InitializeComponent();
 
             this.KeyPreview = true;
             this.KeyPress +=
-                new KeyPressEventHandler(getKeyPress);
-            this.KeyDown +=
-                new KeyEventHandler(getKeyDown);
+                new KeyPressEventHandler(GetKeyPress);
         }
 
         //Key Pressed Event
-        private void getKeyPress(object sender, KeyPressEventArgs e)
+        private void GetKeyPress(object sender, KeyPressEventArgs e)
         {
             switch (e.KeyChar.ToString())
             {
@@ -87,20 +85,8 @@ namespace CalcApp
         }//getKeyPress
 
 
-        private void getKeyDown(object sender, KeyEventArgs e)
-        {
-            MessageBox.Show("hafdsaffdsaf"+e.KeyCode);
-            switch (e.KeyCode)
-            {
-                case Keys.Enter:
-                    MessageBox.Show("hafdsaffdsaf");
-                    break;
-            }
-        }
 
-
-        //
-        private void numButton(object sender, EventArgs e)
+        private void NumButton(object sender, EventArgs e)
         {
             //Sender Type Check
             if(sender is Button)
@@ -142,22 +128,19 @@ namespace CalcApp
                         break;
                 }
 
-                calcEngine.numAppend(numValue);
-                updateResult();
+                calcEngine.NumAppend(numValue);
+                UpdateResult();
 
             }
         }//numButton
 
  
         // TxtResult Update Function
-        private void updateResult()
+        private void UpdateResult()
         {
 
         }
 
-        private void calcForm_KeyDown(object sender, KeyEventArgs e)
-        {
-            MessageBox.Show(e.KeyCode.ToString());
-        }
+
     }
 }

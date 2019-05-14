@@ -8,7 +8,14 @@ namespace CalcApp
 {
     internal class calcEngine
     {
-        public static void numAppend(double numValue)
+
+
+        public static void NumAppend(double numValue)
+        {
+
+        }
+
+        public static void Operation(string operationType)
         {
 
         }
