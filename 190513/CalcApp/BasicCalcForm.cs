@@ -79,7 +79,7 @@ namespace CalcApp
                     btnDot.PerformClick();
                     break;
             }
-        }//getKeyPress
+        }//GetKeyPress()
 
 
 
@@ -142,7 +142,7 @@ namespace CalcApp
                 UpdateResult();
 
             }
-        }//numButton
+        }//NumButton()
 
         private void OtherButton(object sender, EventArgs e)
         {
@@ -206,25 +206,27 @@ namespace CalcApp
                 }
                 else integerLength = getResult.Length;
 
-                int digitCount = integerLength / digit;
+                //commaCount
+                int commaCount = integerLength / digit;
 
-                if (integerLength % digit == 0) digitCount--;
-                else if (integerLength % digit <= 1 && getResult.IndexOf("-") == 0) digitCount--;
+                if (integerLength % digit == 0) commaCount--;
+                else if (integerLength % digit <= 1 && getResult.IndexOf("-") == 0) commaCount--;
 
-                if (digitCount > 0)
+                if (commaCount > 0)
                 {
                     int index = integerLength - 3;
-                    while (digitCount>0)
+                    while (commaCount>0)
                     {
                         getResult = getResult.Insert(index, ",");
                         index -= 3;
-                        digitCount--;
+                        commaCount--;
                     }
                 }
             }
 
             return getResult;
-        }
+
+        }//FormatResult()
 
 
     }

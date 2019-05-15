@@ -13,10 +13,10 @@ namespace CalcApp
     {
         private static string m_input; //Display Number
         private static string m_operation; //Current operator
-        private static string m_sign;
-        public static bool m_decimal;
-        public static int m_countDigit;
-        public static bool m_wait;
+        private static string m_sign; //Sign of Number
+        public static bool m_decimal; //Decimal status
+        public static int m_countDigit; //Count of Digit
+        public static bool m_wait;  // 
 
         //Init CalcEngine
         static CalcEngine()
@@ -129,8 +129,7 @@ namespace CalcApp
                     }
                 }
             }
-
-        }
+        }//OtherOperations()
 
 
         public static bool CheckMaxInput()
@@ -146,11 +145,12 @@ namespace CalcApp
             }
 
             return checkMax;
-        }
+        }//CheckMaxInput()
 
         public static string GetResult()
         {
             return m_input;
         }
+
     }
 }
