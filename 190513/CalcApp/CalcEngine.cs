@@ -16,6 +16,7 @@ namespace CalcApp
         private static string m_sign;
         public static bool m_decimal;
         public static int m_countDigit;
+        public static bool m_wait;
 
         //Init CalcEngine
         static CalcEngine()
@@ -24,6 +25,7 @@ namespace CalcApp
             m_operation = null;
             m_sign = "+";
             m_decimal = false;
+            m_wait = false;
         }
 
         //Reset All Variables
@@ -97,6 +99,36 @@ namespace CalcApp
                     }
                 }
             }
+            //BackSpace
+            if (buttonType.Equals("back"))
+            {
+                if(m_input != null && !m_input.Equals(""))
+                {
+                    //BackSpace at "±0."
+                    if (((int)double.Parse(m_input) == 0) && (m_input.Substring(m_input.Length - 1).Equals(".")))
+                    {
+                        m_input = null;
+                        m_decimal = false;
+                        m_sign = "+";
+                    }
+                    else
+                    {
+                        //BackSpace at 1digit
+                        if (m_input.Length <= 1 || (m_input.Length == 2 && m_sign.Equals("-")))
+                        {
+                            m_input = null;
+                            m_decimal = false;
+                            m_sign = "+";
+                        }
+                        //BackSpace when the last digit is "."
+                        else if (m_input.Substring(m_input.Length - 1).Equals("."))
+                        {
+                            m_decimal = false;
+                        }
+                        else m_input = m_input.Remove(m_input.Length - 1, 1);
+                    }
+                }
+            }
 
         }
 
@@ -116,9 +148,9 @@ namespace CalcApp
             return checkMax;
         }
 
-        public static double GetResult()
+        public static string GetResult()
         {
-            return Convert.ToDouble(m_input);
+            return m_input;
         }
     }
 }

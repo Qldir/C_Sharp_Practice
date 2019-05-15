@@ -169,6 +169,7 @@
             this.btnBack.ForeColor = System.Drawing.SystemColors.ControlText;
             this.btnBack.Name = "btnBack";
             this.btnBack.UseVisualStyleBackColor = true;
+            this.btnBack.Click += new System.EventHandler(this.OtherButton);
             // 
             // btnPercent
             // 

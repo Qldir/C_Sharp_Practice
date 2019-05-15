@@ -156,9 +156,18 @@ namespace CalcApp
                 {
                     case "btnDot":
                         buttonType = "dot";
+                        if(CalcEngine.m_decimal == false)
+                        {
+                            txtResult.Text += ".";
+                            CalcEngine.OtherOperations(buttonType);
+                            return;
+                        }
                         break;
                     case "btnSign":
                         buttonType = "sign";
+                        break;
+                    case "btnBack":
+                        buttonType = "back";
                         break;
                     case "btnAllClear":
                         CalcEngine.AllClear();
@@ -168,14 +177,13 @@ namespace CalcApp
                 CalcEngine.OtherOperations(buttonType);
                 UpdateResult();
 
-               // if (otherBtn.Name.Equals("btnDot") && CalcEngine.m_decimal == false) txtResult.Text += ".";
             }
         }
  
         // TxtResult Update Function
         private void UpdateResult()
         {
-            txtResult.Text = FormatResult(Convert.ToString(CalcEngine.GetResult()));
+            txtResult.Text = FormatResult(CalcEngine.GetResult());
         }
 
         /// <summary>
@@ -185,7 +193,9 @@ namespace CalcApp
         /// </summary>
         private string FormatResult(string getResult)
         {
-            if(getResult.Length > 2)
+            if (getResult == null) return getResult = "0";
+
+            if (getResult.Length > 2)
             {
                 int digit = 3;
                 int integerLength;
@@ -199,6 +209,7 @@ namespace CalcApp
                 int digitCount = integerLength / digit;
 
                 if (integerLength % digit == 0) digitCount--;
+                else if (integerLength % digit <= 1 && getResult.IndexOf("-") == 0) digitCount--;
 
                 if (digitCount > 0)
                 {
