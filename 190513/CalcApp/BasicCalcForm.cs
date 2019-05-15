@@ -85,11 +85,20 @@ namespace CalcApp
 
         private void NumButton(object sender, EventArgs e)
         {
+
             //Sender Type Check
-            if(sender is Button)
+            if (sender is Button)
             {
                 Button num = sender as Button;
                 int numValue;
+
+
+                if (CalcEngine.CheckMaxInput() || (CalcEngine.m_countDigit == 9 && num.Name.Equals("btn00")))
+                {
+                    MessageBox.Show("10桁までしか入力できません");
+
+                    return;
+                }
 
                 switch (num.Name)
                 {
@@ -120,6 +129,10 @@ namespace CalcApp
                     case "btn9":
                         numValue = 9;
                         break;
+                    case "btn00":
+                        CalcEngine.NumAppend("00");
+                        UpdateResult();
+                        return;
                     default:
                         numValue = 0;
                         break;
@@ -131,11 +144,75 @@ namespace CalcApp
             }
         }//numButton
 
+        private void OtherButton(object sender, EventArgs e)
+        {
+            //Sender Type Check
+            if (sender is Button)
+            {
+                Button otherBtn = sender as Button;
+                string buttonType = "";
+
+                switch (otherBtn.Name)
+                {
+                    case "btnDot":
+                        buttonType = "dot";
+                        break;
+                    case "btnSign":
+                        buttonType = "sign";
+                        break;
+                    case "btnAllClear":
+                        CalcEngine.AllClear();
+                        break;
+                }
+
+                CalcEngine.OtherOperations(buttonType);
+                UpdateResult();
+
+               // if (otherBtn.Name.Equals("btnDot") && CalcEngine.m_decimal == false) txtResult.Text += ".";
+            }
+        }
  
         // TxtResult Update Function
         private void UpdateResult()
         {
-            txtResult.Text = Convert.ToString(CalcEngine.GetResult());
+            txtResult.Text = FormatResult(Convert.ToString(CalcEngine.GetResult()));
+        }
+
+        /// <summary>
+        /// Update 2019/05/15
+        /// Input Commas
+        /// 100000.0000 -> 100,000.0000
+        /// </summary>
+        private string FormatResult(string getResult)
+        {
+            if(getResult.Length > 2)
+            {
+                int digit = 3;
+                int integerLength;
+
+                if (getResult.IndexOf(".") != -1)
+                {
+                    integerLength = getResult.IndexOf(".");
+                }
+                else integerLength = getResult.Length;
+
+                int digitCount = integerLength / digit;
+
+                if (integerLength % digit == 0) digitCount--;
+
+                if (digitCount > 0)
+                {
+                    int index = integerLength - 3;
+                    while (digitCount>0)
+                    {
+                        getResult = getResult.Insert(index, ",");
+                        index -= 3;
+                        digitCount--;
+                    }
+                }
+            }
+
+            return getResult;
         }
 
 

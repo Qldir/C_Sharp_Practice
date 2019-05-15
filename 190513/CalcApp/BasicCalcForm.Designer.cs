@@ -40,7 +40,7 @@
             this.btnMplus = new System.Windows.Forms.Button();
             this.btnMminus = new System.Windows.Forms.Button();
             this.btnSqrt = new System.Windows.Forms.Button();
-            this.btnPlusMinus = new System.Windows.Forms.Button();
+            this.btnSign = new System.Windows.Forms.Button();
             this.btnClear = new System.Windows.Forms.Button();
             this.btnAllClear = new System.Windows.Forms.Button();
             this.btnBack = new System.Windows.Forms.Button();
@@ -62,6 +62,8 @@
             this.btnPlus = new System.Windows.Forms.Button();
             this.btnDot = new System.Windows.Forms.Button();
             this.btn0 = new System.Windows.Forms.Button();
+            this.labelMsg = new System.Windows.Forms.Label();
+            this.btn00 = new System.Windows.Forms.Button();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -138,12 +140,13 @@
             this.btnSqrt.Name = "btnSqrt";
             this.btnSqrt.UseVisualStyleBackColor = true;
             // 
-            // btnPlusMinus
+            // btnSign
             // 
-            this.btnPlusMinus.ForeColor = System.Drawing.SystemColors.ControlText;
-            resources.ApplyResources(this.btnPlusMinus, "btnPlusMinus");
-            this.btnPlusMinus.Name = "btnPlusMinus";
-            this.btnPlusMinus.UseVisualStyleBackColor = true;
+            this.btnSign.ForeColor = System.Drawing.SystemColors.ControlText;
+            resources.ApplyResources(this.btnSign, "btnSign");
+            this.btnSign.Name = "btnSign";
+            this.btnSign.UseVisualStyleBackColor = true;
+            this.btnSign.Click += new System.EventHandler(this.OtherButton);
             // 
             // btnClear
             // 
@@ -158,6 +161,7 @@
             resources.ApplyResources(this.btnAllClear, "btnAllClear");
             this.btnAllClear.Name = "btnAllClear";
             this.btnAllClear.UseVisualStyleBackColor = true;
+            this.btnAllClear.Click += new System.EventHandler(this.OtherButton);
             // 
             // btnBack
             // 
@@ -293,6 +297,7 @@
             resources.ApplyResources(this.btnDot, "btnDot");
             this.btnDot.Name = "btnDot";
             this.btnDot.UseVisualStyleBackColor = true;
+            this.btnDot.Click += new System.EventHandler(this.OtherButton);
             // 
             // btn0
             // 
@@ -302,11 +307,26 @@
             this.btn0.UseVisualStyleBackColor = true;
             this.btn0.Click += new System.EventHandler(this.NumButton);
             // 
+            // labelMsg
+            // 
+            resources.ApplyResources(this.labelMsg, "labelMsg");
+            this.labelMsg.Name = "labelMsg";
+            // 
+            // btn00
+            // 
+            this.btn00.ForeColor = System.Drawing.SystemColors.ControlText;
+            resources.ApplyResources(this.btn00, "btn00");
+            this.btn00.Name = "btn00";
+            this.btn00.UseVisualStyleBackColor = true;
+            this.btn00.Click += new System.EventHandler(this.NumButton);
+            // 
             // CalcForm
             // 
             resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Control;
+            this.Controls.Add(this.btn00);
+            this.Controls.Add(this.labelMsg);
             this.Controls.Add(this.btnPlus);
             this.Controls.Add(this.btnDot);
             this.Controls.Add(this.btn0);
@@ -326,7 +346,7 @@
             this.Controls.Add(this.btn8);
             this.Controls.Add(this.btn7);
             this.Controls.Add(this.btnSqrt);
-            this.Controls.Add(this.btnPlusMinus);
+            this.Controls.Add(this.btnSign);
             this.Controls.Add(this.btnClear);
             this.Controls.Add(this.btnAllClear);
             this.Controls.Add(this.btnBack);
@@ -359,7 +379,7 @@
         private System.Windows.Forms.Button btnMplus;
         private System.Windows.Forms.Button btnMminus;
         private System.Windows.Forms.Button btnSqrt;
-        private System.Windows.Forms.Button btnPlusMinus;
+        private System.Windows.Forms.Button btnSign;
         private System.Windows.Forms.Button btnClear;
         private System.Windows.Forms.Button btnAllClear;
         private System.Windows.Forms.Button btnBack;
@@ -381,6 +401,8 @@
         private System.Windows.Forms.Button btnPlus;
         private System.Windows.Forms.Button btnDot;
         private System.Windows.Forms.Button btn0;
+        public System.Windows.Forms.Label labelMsg;
+        private System.Windows.Forms.Button btn00;
     }
 }
 
