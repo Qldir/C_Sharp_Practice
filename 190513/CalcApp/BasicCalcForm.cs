@@ -138,7 +138,7 @@ namespace CalcApp
         }//NumButton()
 
         /// <summary>
-        /// 
+        /// 数字ボタン以外のベント処理
         /// </summary>
         private void OtherButton(object sender, EventArgs e)
         {
@@ -188,8 +188,10 @@ namespace CalcApp
 
 
         /// <summary>
-        /// 数字が入力されると、10桁が超過するかをチェック
+        /// 数字が入力されると、10桁が超過するかをチェックして
+        /// メッセージ表示
         /// </summary>
+        /// <param name="btnName">Button Name</param>
         private bool IsMaxInput(string btnName)
         {
             bool isMax = false;
