@@ -375,8 +375,10 @@
             this.Controls.Add(this.btnMemRead);
             this.Controls.Add(this.btnMemClear);
             this.Controls.Add(this.menuStrip1);
+            this.KeyPreview = true;
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "CalcForm";
+            this.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.GetKeyPress);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.panel1.ResumeLayout(false);

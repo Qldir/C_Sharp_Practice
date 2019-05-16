@@ -15,12 +15,7 @@ namespace CalcApp
         public CalcForm()
         {
             InitializeComponent();
-
-            this.KeyPreview = true;
-            this.KeyPress +=
-                new KeyPressEventHandler(GetKeyPress);
         }
-
 
         //Key Pressed Event
         private void GetKeyPress(object sender, KeyPressEventArgs e)
@@ -89,16 +84,16 @@ namespace CalcApp
             //Sender Type Check
             if (sender is Button)
             {
-                Button num = sender as Button;
+                Button numButton = sender as Button;
                 int numValue;
 
                 //MaxInput Check
-                if (IsMaxInput(num.Name) == true)
+                if (IsMaxInput(numButton.Name) == true)
                 {
                     return;
                 }
 
-                switch (num.Name)
+                switch (numButton.Name)
                 {
                     case "btn1":
                         numValue = 1;
@@ -142,19 +137,22 @@ namespace CalcApp
             }
         }//NumButton()
 
+        /// <summary>
+        /// 
+        /// </summary>
         private void OtherButton(object sender, EventArgs e)
         {
             //Sender Type Check
             if (sender is Button)
             {
-                Button otherBtn = sender as Button;
+                Button otherButton = sender as Button;
                 string buttonType = "";
 
-                switch (otherBtn.Name)
+                switch (otherButton.Name)
                 {
                     case "btnDot":
                         //MaxInput Check
-                        if(IsMaxInput(otherBtn.Name) == true)
+                        if(IsMaxInput(otherButton.Name) == true)
                         {
                             return;
                         }
@@ -189,7 +187,9 @@ namespace CalcApp
         }
 
 
-        //
+        /// <summary>
+        /// 数字が入力されると、10桁が超過するかをチェック
+        /// </summary>
         private bool IsMaxInput(string btnName)
         {
             bool isMax = false;
@@ -218,14 +218,23 @@ namespace CalcApp
         /// </summary>
         private string ResultFormat(string getResult)
         {
-            if (getResult == null)
+            if (getResult.Equals(""))
             {
                 return getResult = "0";
             }
 
             if (getResult.Length > 2)
             {
+
+                /// <summary>
+                /// コンマの表示される桁を設定
+                /// </summary>
                 int digit = 3;
+
+                /// <summary>
+                /// 定数の長さ
+                /// Length of Integer
+                /// </summary>
                 int integerLength;
 
                 if (getResult.IndexOf(".") != -1)
@@ -237,7 +246,10 @@ namespace CalcApp
                     integerLength = getResult.Length;
                 }
 
-                //commaCount
+                /// <summary>
+                /// 表示されるコンマの数計算
+                /// Counting Commas
+                /// </summary>
                 int commaCount = integerLength / digit;
 
                 if (integerLength % digit == 0)
@@ -252,6 +264,7 @@ namespace CalcApp
                 if (commaCount > 0)
                 {
                     int index = integerLength - 3;
+
                     while (commaCount>0)
                     {
                         getResult = getResult.Insert(index, ",");
@@ -263,7 +276,7 @@ namespace CalcApp
 
             return getResult;
 
-        }//FormatResult()
+        }//ResultFormat()
 
 
     }
