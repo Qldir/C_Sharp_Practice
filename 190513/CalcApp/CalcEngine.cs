@@ -179,7 +179,7 @@ namespace CalcApp
                 ///<summary>
                 ///Extracting Number
                 ///Regex.Replace(string input, string pattern, string replacement);
-                ///Regen pattern(@"\D") is [^0-9]
+                ///Replace pattern(@"\D") is [^0-9]
                 ///正規表現を利用して数字以外の文字を変換
                 ///例 : -123.441  ->  123441
                 ///</summary>
