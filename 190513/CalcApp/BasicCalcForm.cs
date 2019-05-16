@@ -92,11 +92,9 @@ namespace CalcApp
                 Button num = sender as Button;
                 int numValue;
 
-
-                if (CalcEngine.CheckMaxInput() || (CalcEngine.m_countDigit == 9 && num.Name.Equals("btn00")))
+                //MaxInput Check
+                if (IsMaxInput(num.Name) == true)
                 {
-                    MessageBox.Show("10桁までしか入力できません");
-
                     return;
                 }
 
@@ -130,7 +128,7 @@ namespace CalcApp
                         numValue = 9;
                         break;
                     case "btn00":
-                        CalcEngine.NumAppend("00");
+                        CalcEngine.AppendNum("00");
                         UpdateResult();
                         return;
                     default:
@@ -138,7 +136,7 @@ namespace CalcApp
                         break;
                 }
 
-                CalcEngine.NumAppend(numValue);
+                CalcEngine.AppendNum(numValue);
                 UpdateResult();
 
             }
@@ -155,22 +153,32 @@ namespace CalcApp
                 switch (otherBtn.Name)
                 {
                     case "btnDot":
+                        //MaxInput Check
+                        if(IsMaxInput(otherBtn.Name) == true)
+                        {
+                            return;
+                        }
+
                         buttonType = "dot";
-                        if(CalcEngine.m_decimal == false)
+
+                        if(CalcEngine.m_isDecimal == false)
                         {
                             txtResult.Text += ".";
                             CalcEngine.OtherOperations(buttonType);
                             return;
                         }
                         break;
+
                     case "btnSign":
                         buttonType = "sign";
                         break;
+
                     case "btnBack":
                         buttonType = "back";
                         break;
+
                     case "btnAllClear":
-                        CalcEngine.AllClear();
+                        CalcEngine.ClearAll();
                         break;
                 }
 
@@ -179,11 +187,28 @@ namespace CalcApp
 
             }
         }
+
+
+        //
+        private bool IsMaxInput(string btnName)
+        {
+            bool isMax = false;
+
+            if (CalcEngine.IsMaxInput() || (CalcEngine.m_countDigit == 9 && btnName.Equals("btn00")))
+            {
+                MessageBox.Show("10桁までしか入力できません");
+
+                isMax = true;
+            }
+
+            return isMax;
+        }
+
  
         // TxtResult Update Function
         private void UpdateResult()
         {
-            txtResult.Text = FormatResult(CalcEngine.GetResult());
+            txtResult.Text = ResultFormat(CalcEngine.GetResult());
         }
 
         /// <summary>
@@ -191,9 +216,12 @@ namespace CalcApp
         /// Input Commas
         /// 100000.0000 -> 100,000.0000
         /// </summary>
-        private string FormatResult(string getResult)
+        private string ResultFormat(string getResult)
         {
-            if (getResult == null) return getResult = "0";
+            if (getResult == null)
+            {
+                return getResult = "0";
+            }
 
             if (getResult.Length > 2)
             {
@@ -204,13 +232,22 @@ namespace CalcApp
                 {
                     integerLength = getResult.IndexOf(".");
                 }
-                else integerLength = getResult.Length;
+                else
+                {
+                    integerLength = getResult.Length;
+                }
 
                 //commaCount
                 int commaCount = integerLength / digit;
 
-                if (integerLength % digit == 0) commaCount--;
-                else if (integerLength % digit <= 1 && getResult.IndexOf("-") == 0) commaCount--;
+                if (integerLength % digit == 0)
+                {
+                    commaCount--;
+                }
+                else if (integerLength % digit <= 1 && getResult.IndexOf("-") == 0)
+                {
+                    commaCount--;
+                }
 
                 if (commaCount > 0)
                 {

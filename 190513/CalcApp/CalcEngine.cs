@@ -14,9 +14,9 @@ namespace CalcApp
         private static string m_input; //Display Number
         private static string m_operation; //Current operator
         private static string m_sign; //Sign of Number
-        public static bool m_decimal; //Decimal status
+        public static bool m_isDecimal; //Decimal status
         public static int m_countDigit; //Count of Digit
-        public static bool m_wait;  // 
+        public static bool m_isWait;  // 
 
         //Init CalcEngine
         static CalcEngine()
@@ -24,21 +24,21 @@ namespace CalcApp
             m_input = null;
             m_operation = null;
             m_sign = "+";
-            m_decimal = false;
-            m_wait = false;
+            m_isDecimal = false;
+            m_isWait = false;
         }
 
         //Reset All Variables
-        public static void AllClear()
+        public static void ClearAll()
         {
             m_input = null;
             m_operation = null;
             m_sign = "+";
-            m_decimal = false;
+            m_isDecimal = false;
             m_countDigit = 0;
         }
 
-        public static void NumAppend(double numValue)
+        public static void AppendNum(double numValue)
         {
             if ( !((m_input == null) && (numValue == 0)) )
             {
@@ -47,7 +47,7 @@ namespace CalcApp
 
         }
 
-        public static void NumAppend(string numValue)
+        public static void AppendNum(string numValue)
         {
             if (!((m_input == null) && (int.Parse(numValue) == 0)))
             {
@@ -66,17 +66,20 @@ namespace CalcApp
             //Dot
             if (buttonType.Equals("dot"))
             {
-                if (m_decimal == true) return;
+                if (m_isDecimal == true)
+                {
+                    return;
+                }
 
                 if (m_input == null)
                 {
                     m_input = "0.";
-                    m_decimal = true;
+                    m_isDecimal = true;
                 }
                 else
                 {
                     m_input += ".";
-                    m_decimal = true;
+                    m_isDecimal = true;
                 }
             }
             //Switch Sign
@@ -108,7 +111,7 @@ namespace CalcApp
                     if (((int)double.Parse(m_input) == 0) && (m_input.Substring(m_input.Length - 1).Equals(".")))
                     {
                         m_input = null;
-                        m_decimal = false;
+                        m_isDecimal = false;
                         m_sign = "+";
                     }
                     else
@@ -117,35 +120,41 @@ namespace CalcApp
                         if (m_input.Length <= 1 || (m_input.Length == 2 && m_sign.Equals("-")))
                         {
                             m_input = null;
-                            m_decimal = false;
+                            m_isDecimal = false;
                             m_sign = "+";
                         }
-                        //BackSpace when the last digit is "."
-                        else if (m_input.Substring(m_input.Length - 1).Equals("."))
+                        else
                         {
-                            m_decimal = false;
+                            //BackSpace when the last digit is "."
+                            if (m_input.Substring(m_input.Length - 1).Equals("."))
+                            {
+                                m_isDecimal = false;
+                            }
+                            m_input = m_input.Remove(m_input.Length - 1, 1);
                         }
-                        else m_input = m_input.Remove(m_input.Length - 1, 1);
                     }
                 }
             }
         }//OtherOperations()
 
 
-        public static bool CheckMaxInput()
+        public static bool IsMaxInput()
         {
-            bool checkMax = false;
+            bool isMax = false;
 
             if (m_input != null)
             {
                 string tempInput = Regex.Replace(m_input, @"\D", "");
                 m_countDigit = tempInput.Length;
 
-                if (m_countDigit == 10) checkMax = true;
+                if (m_countDigit == 10)
+                {
+                    isMax = true;
+                }
             }
 
-            return checkMax;
-        }//CheckMaxInput()
+            return isMax;
+        }//isMaxInput()
 
         public static string GetResult()
         {

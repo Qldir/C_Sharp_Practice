@@ -34,12 +34,12 @@
             this.編集EToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ヘルプHToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.txtResult = new System.Windows.Forms.RichTextBox();
-            this.btnMc = new System.Windows.Forms.Button();
-            this.btnMr = new System.Windows.Forms.Button();
-            this.btnMs = new System.Windows.Forms.Button();
-            this.btnMplus = new System.Windows.Forms.Button();
-            this.btnMminus = new System.Windows.Forms.Button();
-            this.btnSqrt = new System.Windows.Forms.Button();
+            this.btnMemClear = new System.Windows.Forms.Button();
+            this.btnMemRead = new System.Windows.Forms.Button();
+            this.btnIncludedTax = new System.Windows.Forms.Button();
+            this.btnMemAdd = new System.Windows.Forms.Button();
+            this.btnMemStore = new System.Windows.Forms.Button();
+            this.btnGrandTotal = new System.Windows.Forms.Button();
             this.btnSign = new System.Windows.Forms.Button();
             this.btnClear = new System.Windows.Forms.Button();
             this.btnAllClear = new System.Windows.Forms.Button();
@@ -49,7 +49,7 @@
             this.btn9 = new System.Windows.Forms.Button();
             this.btn8 = new System.Windows.Forms.Button();
             this.btn7 = new System.Windows.Forms.Button();
-            this.btnOnOff = new System.Windows.Forms.Button();
+            this.btnExcludedTax = new System.Windows.Forms.Button();
             this.btnMul = new System.Windows.Forms.Button();
             this.btn6 = new System.Windows.Forms.Button();
             this.btn5 = new System.Windows.Forms.Button();
@@ -64,7 +64,10 @@
             this.btn0 = new System.Windows.Forms.Button();
             this.labelMsg = new System.Windows.Forms.Label();
             this.btn00 = new System.Windows.Forms.Button();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.label1 = new System.Windows.Forms.Label();
             this.menuStrip1.SuspendLayout();
+            this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // menuStrip1
@@ -98,47 +101,47 @@
             this.txtResult.Name = "txtResult";
             this.txtResult.ReadOnly = true;
             // 
-            // btnMc
+            // btnMemClear
             // 
-            this.btnMc.ForeColor = System.Drawing.SystemColors.ControlText;
-            resources.ApplyResources(this.btnMc, "btnMc");
-            this.btnMc.Name = "btnMc";
-            this.btnMc.UseVisualStyleBackColor = true;
+            this.btnMemClear.ForeColor = System.Drawing.SystemColors.ControlText;
+            resources.ApplyResources(this.btnMemClear, "btnMemClear");
+            this.btnMemClear.Name = "btnMemClear";
+            this.btnMemClear.UseVisualStyleBackColor = true;
             // 
-            // btnMr
+            // btnMemRead
             // 
-            this.btnMr.ForeColor = System.Drawing.SystemColors.ControlText;
-            resources.ApplyResources(this.btnMr, "btnMr");
-            this.btnMr.Name = "btnMr";
-            this.btnMr.UseVisualStyleBackColor = true;
+            this.btnMemRead.ForeColor = System.Drawing.SystemColors.ControlText;
+            resources.ApplyResources(this.btnMemRead, "btnMemRead");
+            this.btnMemRead.Name = "btnMemRead";
+            this.btnMemRead.UseVisualStyleBackColor = true;
             // 
-            // btnMs
+            // btnIncludedTax
             // 
-            this.btnMs.ForeColor = System.Drawing.SystemColors.ControlText;
-            resources.ApplyResources(this.btnMs, "btnMs");
-            this.btnMs.Name = "btnMs";
-            this.btnMs.UseVisualStyleBackColor = true;
+            resources.ApplyResources(this.btnIncludedTax, "btnIncludedTax");
+            this.btnIncludedTax.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.btnIncludedTax.Name = "btnIncludedTax";
+            this.btnIncludedTax.UseVisualStyleBackColor = true;
             // 
-            // btnMplus
+            // btnMemAdd
             // 
-            this.btnMplus.ForeColor = System.Drawing.SystemColors.ControlText;
-            resources.ApplyResources(this.btnMplus, "btnMplus");
-            this.btnMplus.Name = "btnMplus";
-            this.btnMplus.UseVisualStyleBackColor = true;
+            this.btnMemAdd.ForeColor = System.Drawing.SystemColors.ControlText;
+            resources.ApplyResources(this.btnMemAdd, "btnMemAdd");
+            this.btnMemAdd.Name = "btnMemAdd";
+            this.btnMemAdd.UseVisualStyleBackColor = true;
             // 
-            // btnMminus
+            // btnMemStore
             // 
-            this.btnMminus.ForeColor = System.Drawing.SystemColors.ControlText;
-            resources.ApplyResources(this.btnMminus, "btnMminus");
-            this.btnMminus.Name = "btnMminus";
-            this.btnMminus.UseVisualStyleBackColor = true;
+            this.btnMemStore.ForeColor = System.Drawing.SystemColors.ControlText;
+            resources.ApplyResources(this.btnMemStore, "btnMemStore");
+            this.btnMemStore.Name = "btnMemStore";
+            this.btnMemStore.UseVisualStyleBackColor = true;
             // 
-            // btnSqrt
+            // btnGrandTotal
             // 
-            this.btnSqrt.ForeColor = System.Drawing.SystemColors.ControlText;
-            resources.ApplyResources(this.btnSqrt, "btnSqrt");
-            this.btnSqrt.Name = "btnSqrt";
-            this.btnSqrt.UseVisualStyleBackColor = true;
+            this.btnGrandTotal.ForeColor = System.Drawing.SystemColors.ControlText;
+            resources.ApplyResources(this.btnGrandTotal, "btnGrandTotal");
+            this.btnGrandTotal.Name = "btnGrandTotal";
+            this.btnGrandTotal.UseVisualStyleBackColor = true;
             // 
             // btnSign
             // 
@@ -209,12 +212,12 @@
             this.btn7.UseVisualStyleBackColor = true;
             this.btn7.Click += new System.EventHandler(this.NumButton);
             // 
-            // btnOnOff
+            // btnExcludedTax
             // 
-            this.btnOnOff.ForeColor = System.Drawing.SystemColors.ControlText;
-            resources.ApplyResources(this.btnOnOff, "btnOnOff");
-            this.btnOnOff.Name = "btnOnOff";
-            this.btnOnOff.UseVisualStyleBackColor = true;
+            resources.ApplyResources(this.btnExcludedTax, "btnExcludedTax");
+            this.btnExcludedTax.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.btnExcludedTax.Name = "btnExcludedTax";
+            this.btnExcludedTax.UseVisualStyleBackColor = true;
             // 
             // btnMul
             // 
@@ -311,6 +314,7 @@
             // labelMsg
             // 
             resources.ApplyResources(this.labelMsg, "labelMsg");
+            this.labelMsg.BackColor = System.Drawing.SystemColors.Control;
             this.labelMsg.Name = "labelMsg";
             // 
             // btn00
@@ -321,13 +325,27 @@
             this.btn00.UseVisualStyleBackColor = true;
             this.btn00.Click += new System.EventHandler(this.NumButton);
             // 
+            // panel1
+            // 
+            this.panel1.BackColor = System.Drawing.SystemColors.ControlDarkDark;
+            this.panel1.Controls.Add(this.labelMsg);
+            this.panel1.Controls.Add(this.txtResult);
+            resources.ApplyResources(this.panel1, "panel1");
+            this.panel1.Name = "panel1";
+            // 
+            // label1
+            // 
+            resources.ApplyResources(this.label1, "label1");
+            this.label1.Name = "label1";
+            // 
             // CalcForm
             // 
             resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Control;
+            this.Controls.Add(this.label1);
+            this.Controls.Add(this.panel1);
             this.Controls.Add(this.btn00);
-            this.Controls.Add(this.labelMsg);
             this.Controls.Add(this.btnPlus);
             this.Controls.Add(this.btnDot);
             this.Controls.Add(this.btn0);
@@ -336,7 +354,7 @@
             this.Controls.Add(this.btn3);
             this.Controls.Add(this.btn2);
             this.Controls.Add(this.btn1);
-            this.Controls.Add(this.btnOnOff);
+            this.Controls.Add(this.btnExcludedTax);
             this.Controls.Add(this.btnMul);
             this.Controls.Add(this.btn6);
             this.Controls.Add(this.btn5);
@@ -346,22 +364,23 @@
             this.Controls.Add(this.btn9);
             this.Controls.Add(this.btn8);
             this.Controls.Add(this.btn7);
-            this.Controls.Add(this.btnSqrt);
+            this.Controls.Add(this.btnGrandTotal);
             this.Controls.Add(this.btnSign);
             this.Controls.Add(this.btnClear);
             this.Controls.Add(this.btnAllClear);
             this.Controls.Add(this.btnBack);
-            this.Controls.Add(this.btnMminus);
-            this.Controls.Add(this.btnMplus);
-            this.Controls.Add(this.btnMs);
-            this.Controls.Add(this.btnMr);
-            this.Controls.Add(this.btnMc);
-            this.Controls.Add(this.txtResult);
+            this.Controls.Add(this.btnMemStore);
+            this.Controls.Add(this.btnMemAdd);
+            this.Controls.Add(this.btnIncludedTax);
+            this.Controls.Add(this.btnMemRead);
+            this.Controls.Add(this.btnMemClear);
             this.Controls.Add(this.menuStrip1);
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "CalcForm";
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
+            this.panel1.ResumeLayout(false);
+            this.panel1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -374,12 +393,12 @@
         private System.Windows.Forms.ToolStripMenuItem 編集EToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem ヘルプHToolStripMenuItem;
         private System.Windows.Forms.RichTextBox txtResult;
-        private System.Windows.Forms.Button btnMc;
-        private System.Windows.Forms.Button btnMr;
-        private System.Windows.Forms.Button btnMs;
-        private System.Windows.Forms.Button btnMplus;
-        private System.Windows.Forms.Button btnMminus;
-        private System.Windows.Forms.Button btnSqrt;
+        private System.Windows.Forms.Button btnMemClear;
+        private System.Windows.Forms.Button btnMemRead;
+        private System.Windows.Forms.Button btnIncludedTax;
+        private System.Windows.Forms.Button btnMemAdd;
+        private System.Windows.Forms.Button btnMemStore;
+        private System.Windows.Forms.Button btnGrandTotal;
         private System.Windows.Forms.Button btnSign;
         private System.Windows.Forms.Button btnClear;
         private System.Windows.Forms.Button btnAllClear;
@@ -389,7 +408,7 @@
         private System.Windows.Forms.Button btn9;
         private System.Windows.Forms.Button btn8;
         private System.Windows.Forms.Button btn7;
-        private System.Windows.Forms.Button btnOnOff;
+        private System.Windows.Forms.Button btnExcludedTax;
         private System.Windows.Forms.Button btnMul;
         private System.Windows.Forms.Button btn6;
         private System.Windows.Forms.Button btn5;
@@ -404,6 +423,8 @@
         private System.Windows.Forms.Button btn0;
         public System.Windows.Forms.Label labelMsg;
         private System.Windows.Forms.Button btn00;
+        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.Label label1;
     }
 }
 
