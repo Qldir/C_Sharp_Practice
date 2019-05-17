@@ -29,10 +29,6 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(CalcForm));
-            this.menuStrip1 = new System.Windows.Forms.MenuStrip();
-            this.表示VToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.編集EToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.ヘルプHToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.txtResult = new System.Windows.Forms.RichTextBox();
             this.btnMemClear = new System.Windows.Forms.Button();
             this.btnMemRead = new System.Windows.Forms.Button();
@@ -62,37 +58,12 @@
             this.btnPlus = new System.Windows.Forms.Button();
             this.btnDot = new System.Windows.Forms.Button();
             this.btn0 = new System.Windows.Forms.Button();
-            this.labelMsg = new System.Windows.Forms.Label();
+            this.lblSubText = new System.Windows.Forms.Label();
             this.btn00 = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.label1 = new System.Windows.Forms.Label();
-            this.menuStrip1.SuspendLayout();
+            this.lblOnText = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
-            // 
-            // menuStrip1
-            // 
-            this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.表示VToolStripMenuItem,
-            this.編集EToolStripMenuItem,
-            this.ヘルプHToolStripMenuItem});
-            resources.ApplyResources(this.menuStrip1, "menuStrip1");
-            this.menuStrip1.Name = "menuStrip1";
-            // 
-            // 表示VToolStripMenuItem
-            // 
-            this.表示VToolStripMenuItem.Name = "表示VToolStripMenuItem";
-            resources.ApplyResources(this.表示VToolStripMenuItem, "表示VToolStripMenuItem");
-            // 
-            // 編集EToolStripMenuItem
-            // 
-            this.編集EToolStripMenuItem.Name = "編集EToolStripMenuItem";
-            resources.ApplyResources(this.編集EToolStripMenuItem, "編集EToolStripMenuItem");
-            // 
-            // ヘルプHToolStripMenuItem
-            // 
-            this.ヘルプHToolStripMenuItem.Name = "ヘルプHToolStripMenuItem";
-            resources.ApplyResources(this.ヘルプHToolStripMenuItem, "ヘルプHToolStripMenuItem");
             // 
             // txtResult
             // 
@@ -149,7 +120,7 @@
             resources.ApplyResources(this.btnSign, "btnSign");
             this.btnSign.Name = "btnSign";
             this.btnSign.UseVisualStyleBackColor = true;
-            this.btnSign.Click += new System.EventHandler(this.OtherButton);
+            this.btnSign.Click += new System.EventHandler(this.ClickOtherButton);
             // 
             // btnClear
             // 
@@ -164,7 +135,7 @@
             resources.ApplyResources(this.btnAllClear, "btnAllClear");
             this.btnAllClear.Name = "btnAllClear";
             this.btnAllClear.UseVisualStyleBackColor = true;
-            this.btnAllClear.Click += new System.EventHandler(this.OtherButton);
+            this.btnAllClear.Click += new System.EventHandler(this.ClickOtherButton);
             // 
             // btnBack
             // 
@@ -172,7 +143,7 @@
             this.btnBack.ForeColor = System.Drawing.SystemColors.ControlText;
             this.btnBack.Name = "btnBack";
             this.btnBack.UseVisualStyleBackColor = true;
-            this.btnBack.Click += new System.EventHandler(this.OtherButton);
+            this.btnBack.Click += new System.EventHandler(this.ClickOtherButton);
             // 
             // btnPercent
             // 
@@ -194,7 +165,7 @@
             resources.ApplyResources(this.btn9, "btn9");
             this.btn9.Name = "btn9";
             this.btn9.UseVisualStyleBackColor = true;
-            this.btn9.Click += new System.EventHandler(this.NumButton);
+            this.btn9.Click += new System.EventHandler(this.ClickNumButton);
             // 
             // btn8
             // 
@@ -202,7 +173,7 @@
             resources.ApplyResources(this.btn8, "btn8");
             this.btn8.Name = "btn8";
             this.btn8.UseVisualStyleBackColor = true;
-            this.btn8.Click += new System.EventHandler(this.NumButton);
+            this.btn8.Click += new System.EventHandler(this.ClickNumButton);
             // 
             // btn7
             // 
@@ -210,7 +181,7 @@
             resources.ApplyResources(this.btn7, "btn7");
             this.btn7.Name = "btn7";
             this.btn7.UseVisualStyleBackColor = true;
-            this.btn7.Click += new System.EventHandler(this.NumButton);
+            this.btn7.Click += new System.EventHandler(this.ClickNumButton);
             // 
             // btnExcludedTax
             // 
@@ -232,7 +203,7 @@
             resources.ApplyResources(this.btn6, "btn6");
             this.btn6.Name = "btn6";
             this.btn6.UseVisualStyleBackColor = true;
-            this.btn6.Click += new System.EventHandler(this.NumButton);
+            this.btn6.Click += new System.EventHandler(this.ClickNumButton);
             // 
             // btn5
             // 
@@ -240,7 +211,7 @@
             resources.ApplyResources(this.btn5, "btn5");
             this.btn5.Name = "btn5";
             this.btn5.UseVisualStyleBackColor = true;
-            this.btn5.Click += new System.EventHandler(this.NumButton);
+            this.btn5.Click += new System.EventHandler(this.ClickNumButton);
             // 
             // btn4
             // 
@@ -248,7 +219,7 @@
             resources.ApplyResources(this.btn4, "btn4");
             this.btn4.Name = "btn4";
             this.btn4.UseVisualStyleBackColor = true;
-            this.btn4.Click += new System.EventHandler(this.NumButton);
+            this.btn4.Click += new System.EventHandler(this.ClickNumButton);
             // 
             // btnEqual
             // 
@@ -270,7 +241,7 @@
             resources.ApplyResources(this.btn3, "btn3");
             this.btn3.Name = "btn3";
             this.btn3.UseVisualStyleBackColor = true;
-            this.btn3.Click += new System.EventHandler(this.NumButton);
+            this.btn3.Click += new System.EventHandler(this.ClickNumButton);
             // 
             // btn2
             // 
@@ -278,7 +249,7 @@
             resources.ApplyResources(this.btn2, "btn2");
             this.btn2.Name = "btn2";
             this.btn2.UseVisualStyleBackColor = true;
-            this.btn2.Click += new System.EventHandler(this.NumButton);
+            this.btn2.Click += new System.EventHandler(this.ClickNumButton);
             // 
             // btn1
             // 
@@ -286,7 +257,7 @@
             resources.ApplyResources(this.btn1, "btn1");
             this.btn1.Name = "btn1";
             this.btn1.UseVisualStyleBackColor = true;
-            this.btn1.Click += new System.EventHandler(this.NumButton);
+            this.btn1.Click += new System.EventHandler(this.ClickNumButton);
             // 
             // btnPlus
             // 
@@ -301,7 +272,7 @@
             resources.ApplyResources(this.btnDot, "btnDot");
             this.btnDot.Name = "btnDot";
             this.btnDot.UseVisualStyleBackColor = true;
-            this.btnDot.Click += new System.EventHandler(this.OtherButton);
+            this.btnDot.Click += new System.EventHandler(this.ClickOtherButton);
             // 
             // btn0
             // 
@@ -309,13 +280,13 @@
             resources.ApplyResources(this.btn0, "btn0");
             this.btn0.Name = "btn0";
             this.btn0.UseVisualStyleBackColor = true;
-            this.btn0.Click += new System.EventHandler(this.NumButton);
+            this.btn0.Click += new System.EventHandler(this.ClickNumButton);
             // 
-            // labelMsg
+            // lblSubText
             // 
-            resources.ApplyResources(this.labelMsg, "labelMsg");
-            this.labelMsg.BackColor = System.Drawing.SystemColors.Control;
-            this.labelMsg.Name = "labelMsg";
+            resources.ApplyResources(this.lblSubText, "lblSubText");
+            this.lblSubText.BackColor = System.Drawing.SystemColors.Control;
+            this.lblSubText.Name = "lblSubText";
             // 
             // btn00
             // 
@@ -323,27 +294,27 @@
             resources.ApplyResources(this.btn00, "btn00");
             this.btn00.Name = "btn00";
             this.btn00.UseVisualStyleBackColor = true;
-            this.btn00.Click += new System.EventHandler(this.NumButton);
+            this.btn00.Click += new System.EventHandler(this.ClickNumButton);
             // 
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.SystemColors.ControlDarkDark;
-            this.panel1.Controls.Add(this.labelMsg);
+            this.panel1.Controls.Add(this.lblSubText);
             this.panel1.Controls.Add(this.txtResult);
             resources.ApplyResources(this.panel1, "panel1");
             this.panel1.Name = "panel1";
             // 
-            // label1
+            // lblOnText
             // 
-            resources.ApplyResources(this.label1, "label1");
-            this.label1.Name = "label1";
+            resources.ApplyResources(this.lblOnText, "lblOnText");
+            this.lblOnText.Name = "lblOnText";
             // 
             // CalcForm
             // 
             resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Control;
-            this.Controls.Add(this.label1);
+            this.Controls.Add(this.lblOnText);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.btn00);
             this.Controls.Add(this.btnPlus);
@@ -374,13 +345,9 @@
             this.Controls.Add(this.btnIncludedTax);
             this.Controls.Add(this.btnMemRead);
             this.Controls.Add(this.btnMemClear);
-            this.Controls.Add(this.menuStrip1);
             this.KeyPreview = true;
-            this.MainMenuStrip = this.menuStrip1;
             this.Name = "CalcForm";
             this.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.GetKeyPress);
-            this.menuStrip1.ResumeLayout(false);
-            this.menuStrip1.PerformLayout();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             this.ResumeLayout(false);
@@ -389,11 +356,6 @@
         }
 
         #endregion
-
-        private System.Windows.Forms.MenuStrip menuStrip1;
-        private System.Windows.Forms.ToolStripMenuItem 表示VToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem 編集EToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem ヘルプHToolStripMenuItem;
         private System.Windows.Forms.RichTextBox txtResult;
         private System.Windows.Forms.Button btnMemClear;
         private System.Windows.Forms.Button btnMemRead;
@@ -423,10 +385,10 @@
         private System.Windows.Forms.Button btnPlus;
         private System.Windows.Forms.Button btnDot;
         private System.Windows.Forms.Button btn0;
-        public System.Windows.Forms.Label labelMsg;
+        public System.Windows.Forms.Label lblSubText;
         private System.Windows.Forms.Button btn00;
         private System.Windows.Forms.Panel panel1;
-        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label lblOnText;
     }
 }
 

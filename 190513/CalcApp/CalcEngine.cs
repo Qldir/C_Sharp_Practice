@@ -11,12 +11,12 @@ namespace CalcApp
 
     internal class CalcEngine
     {
-        private static string m_input;          //Display Number
-        private static string m_operation;      //Current operator
-        private static string m_sign;           //Sign of Number
-        public static bool m_isDecimal;         //Decimal status
-        public static bool m_isWait;            //Wait for new input after a number
-        public static int m_countDigit;         //Count of Digit
+        private static string input;          //Display Number
+        private static string operation;      //Current operator
+        private static string sign;           //Sign of Number
+        public static bool isDecimal;         //Decimal status
+        public static bool isWait;            //Wait for new input after a number
+        public static int countDigit;         //Count of Digit
 
         private static readonly int MaxDigit = 10;     //Max Digit 10
 
@@ -25,11 +25,11 @@ namespace CalcApp
         /// </summary>
         static CalcEngine()
         {
-            m_input = "";
-            m_operation = "";
-            m_sign = "+";
-            m_isDecimal = false;
-            m_isWait = false;
+            input = "";
+            operation = "";
+            sign = "+";
+            isDecimal = false;
+            isWait = false;
         }
 
 
@@ -38,12 +38,13 @@ namespace CalcApp
         /// </summary>
         public static void ClearAll()
         {
-            m_input = "";
-            m_operation = "";
-            m_sign = "+";
-            m_isDecimal = false;
-            m_countDigit = 0;
+            input = "";
+            operation = "";
+            sign = "+";
+            isDecimal = false;
+            countDigit = 0;
         }
+
 
         /// <summary>
         /// AppendNum "0~9"
@@ -52,111 +53,114 @@ namespace CalcApp
         /// <param name="numValue">Double Type</param>
         public static void AppendNum(double numValue)
         {
-            if ( !(m_input.Equals("") && (numValue == 0)) )
+            if ( !(input.Equals("") && (numValue == 0)) )
             {
-                m_input += "" + numValue;
+                input += "" + numValue;
             }
 
         }
+
 
         /// <summary>
         /// AppendNum 00
         /// 初めて入力が0であることを除外
         /// "00"の場合Int刑変換を通じて'0'でチェック
         /// </summary>
-        /// <param name="numValue">Input Number Value</param>
+        /// <param name="numValue">Input Number Value</param>arithmetic
         public static void AppendNum(string numValue)
         {
-            if (!(m_input.Equals("") && (int.Parse(numValue) == 0)))
+            if (!(input.Equals("") && (int.Parse(numValue) == 0)))
             {
-                m_input += numValue;
+                input += numValue;
             }
         }
+
 
         /// <summary>
         /// Arithmetic Operation
         /// 基本演算(+, -, *, /)を処理するメソッド
         /// </summary>
-        /// <param name="operationType">演算(+, -, *, /)タイプ</param>
-        public static void Operation(string operationType)
+        /// <param name="operatorType">演算(+, -, *, /)タイプ</param>
+        public static void NumericOperation(string operatorType)
         {
 
         }
+
 
         /// <summary>
         /// 数字入力以外の電卓の機能を処理するメソッド
         /// </summary>
         /// <param name="buttonType"></param>
-        public static void OtherOperations(string buttonType)
+        public static void NonNumericOperation(string buttonType)
         {
             //Dot
             if (buttonType.Equals("dot"))
             {
-                if (m_isDecimal == true)
+                if (isDecimal)
                 {
                     return;
                 }
 
-                if (m_input.Equals(""))
+                if (input.Equals(""))
                 {
-                    m_input = "0.";
-                    m_isDecimal = true;
+                    input = "0.";
+                    isDecimal = true;
                 }
                 else
                 {
-                    m_input += ".";
-                    m_isDecimal = true;
+                    input += ".";
+                    isDecimal = true;
                 }
             }
             //Switch Sign
             if (buttonType.Equals("sign"))
             {
-                if(!m_input.Equals(""))
+                if(!input.Equals(""))
                 {
-                    if (m_sign.Equals("+"))
+                    if (sign.Equals("+"))
                     {
-                        m_sign = "-";
-                        m_input = m_sign + m_input;
+                        sign = "-";
+                        input = sign + input;
                     }
                     else
                     {
-                        if (m_sign.Equals("-"))
+                        if (sign.Equals("-"))
                         {
-                            m_input = m_input.Remove(0, 1);
+                            input = input.Remove(0, 1);
                         }
-                        m_sign = "+";
+                        sign = "+";
                     }
                 }
             }
             //BackSpace
             if (buttonType.Equals("back"))
             {
-                if(!m_input.Equals(""))
+                if(!input.Equals(""))
                 {
                     //BackSpace at "±0."
-                    if (((int)double.Parse(m_input) == 0) && (m_input.Substring(m_input.Length - 1).Equals(".")))
+                    if (((int)double.Parse(input) == 0) && (input.Substring(input.Length - 1).Equals(".")))
                     {
-                        m_input = "";
-                        m_isDecimal = false;
-                        m_sign = "+";
+                        input = "";
+                        isDecimal = false;
+                        sign = "+";
                     }
                     else
                     {
                         //BackSpace at 1digit
-                        if (m_input.Length <= 1 || (m_input.Length == 2 && m_sign.Equals("-")))
+                        if (input.Length <= 1 || (input.Length == 2 && sign.Equals("-")))
                         {
-                            m_input = "";
-                            m_isDecimal = false;
-                            m_sign = "+";
+                            input = "";
+                            isDecimal = false;
+                            sign = "+";
                         }
                         else
                         {
                             //BackSpace when the last digit is "."
-                            if (m_input.Substring(m_input.Length - 1).Equals("."))
+                            if (input.Substring(input.Length - 1).Equals("."))
                             {
-                                m_isDecimal = false;
+                                isDecimal = false;
                             }
-                            m_input = m_input.Remove(m_input.Length - 1, 1);
+                            input = input.Remove(input.Length - 1, 1);
                         }
                     }
                 }
@@ -174,7 +178,7 @@ namespace CalcApp
         {
             bool isMax = false;
 
-            if (!m_input.Equals(""))
+            if (!input.Equals(""))
             {
                 ///<summary>
                 ///Extracting Number
@@ -183,11 +187,11 @@ namespace CalcApp
                 ///正規表現を利用して数字以外の文字を変換
                 ///例 : -123.441  ->  123441
                 ///</summary>
-                string extractNumber = Regex.Replace(m_input, @"\D", "");
+                string extractNumber = Regex.Replace(input, @"\D", "");
 
-                m_countDigit = extractNumber.Length;
+                countDigit = extractNumber.Length;
 
-                if (m_countDigit == MaxDigit)
+                if (countDigit >= MaxDigit)
                 {
                     isMax = true;
                 }
@@ -196,12 +200,13 @@ namespace CalcApp
             return isMax;
         }//isMaxInput()
 
+
         /// <summary>
         /// 現在の入力された値をreturn
         /// </summary>
         public static string GetResult()
         {
-            return m_input;
+            return input;
         }
 
     }

@@ -77,8 +77,7 @@ namespace CalcApp
         }//GetKeyPress()
 
 
-
-        private void NumButton(object sender, EventArgs e)
+        private void ClickNumButton(object sender, EventArgs e)
         {
 
             //Sender Type Check
@@ -88,7 +87,7 @@ namespace CalcApp
                 int numValue;
 
                 //MaxInput Check
-                if (IsMaxInput(numButton.Name) == true)
+                if (IsMaxInput(numButton.Name))
                 {
                     return;
                 }
@@ -135,12 +134,13 @@ namespace CalcApp
                 UpdateResult();
 
             }
-        }//NumButton()
+        }//ClickNumButton()
+
 
         /// <summary>
         /// 数字ボタン以外のベント処理
         /// </summary>
-        private void OtherButton(object sender, EventArgs e)
+        private void ClickOtherButton(object sender, EventArgs e)
         {
             //Sender Type Check
             if (sender is Button)
@@ -152,17 +152,17 @@ namespace CalcApp
                 {
                     case "btnDot":
                         //MaxInput Check
-                        if(IsMaxInput(otherButton.Name) == true)
+                        if(IsMaxInput(otherButton.Name))
                         {
                             return;
                         }
 
                         buttonType = "dot";
 
-                        if(CalcEngine.m_isDecimal == false)
+                        if(!CalcEngine.isDecimal)
                         {
                             txtResult.Text += ".";
-                            CalcEngine.OtherOperations(buttonType);
+                            CalcEngine.NonNumericOperation(buttonType);
                             return;
                         }
                         break;
@@ -180,11 +180,11 @@ namespace CalcApp
                         break;
                 }
 
-                CalcEngine.OtherOperations(buttonType);
+                CalcEngine.NonNumericOperation(buttonType);
                 UpdateResult();
 
             }
-        }
+        }//ClickOtherButton
 
 
         /// <summary>
@@ -196,9 +196,15 @@ namespace CalcApp
         {
             bool isMax = false;
 
-            if (CalcEngine.IsMaxInput() || (CalcEngine.m_countDigit == 9 && btnName.Equals("btn00")))
+            if (CalcEngine.IsMaxInput())
             {
                 MessageBox.Show("10桁までしか入力できません");
+
+                isMax = true;
+            }
+            else if(CalcEngine.countDigit == 9 && btnName.Equals("btn00"))
+            {
+                btn0.PerformClick();
 
                 isMax = true;
             }
@@ -212,6 +218,7 @@ namespace CalcApp
         {
             txtResult.Text = ResultFormat(CalcEngine.GetResult());
         }
+
 
         /// <summary>
         /// Update 2019/05/15
