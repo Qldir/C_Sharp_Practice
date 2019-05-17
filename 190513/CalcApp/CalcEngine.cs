@@ -25,8 +25,8 @@ namespace CalcApp
         /// </summary>
         static CalcEngine()
         {
-            input = "";
-            operation = "";
+            input = String.Empty;
+            operation = String.Empty;
             sign = "+";
             isDecimal = false;
             isWait = false;
@@ -38,13 +38,13 @@ namespace CalcApp
         /// </summary>
         public static void ClearAll()
         {
-            input = "";
-            operation = "";
+            input = String.Empty;
+            operation = String.Empty;
             sign = "+";
             isDecimal = false;
             countDigit = 0;
         }
-
+        
 
         /// <summary>
         /// AppendNum "0~9"
@@ -53,7 +53,7 @@ namespace CalcApp
         /// <param name="numValue">Double Type</param>
         public static void AppendNum(double numValue)
         {
-            if ( !(input.Equals("") && (numValue == 0)) )
+            if ( !(String.IsNullOrEmpty(input) && (numValue == 0)) )
             {
                 input += "" + numValue;
             }
@@ -69,7 +69,7 @@ namespace CalcApp
         /// <param name="numValue">Input Number Value</param>arithmetic
         public static void AppendNum(string numValue)
         {
-            if (!(input.Equals("") && (int.Parse(numValue) == 0)))
+            if (!(String.IsNullOrEmpty(input) && (int.Parse(numValue) == 0)))
             {
                 input += numValue;
             }
@@ -115,7 +115,7 @@ namespace CalcApp
             //Switch Sign
             if (buttonType.Equals("sign"))
             {
-                if(!input.Equals(""))
+                if(!String.IsNullOrEmpty(input))
                 {
                     if (sign.Equals("+"))
                     {
@@ -135,12 +135,12 @@ namespace CalcApp
             //BackSpace
             if (buttonType.Equals("back"))
             {
-                if(!input.Equals(""))
+                if(!String.IsNullOrEmpty(input))
                 {
                     //BackSpace at "±0."
                     if (((int)double.Parse(input) == 0) && (input.Substring(input.Length - 1).Equals(".")))
                     {
-                        input = "";
+                        input = String.Empty;
                         isDecimal = false;
                         sign = "+";
                     }
@@ -149,7 +149,7 @@ namespace CalcApp
                         //BackSpace at 1digit
                         if (input.Length <= 1 || (input.Length == 2 && sign.Equals("-")))
                         {
-                            input = "";
+                            input = String.Empty;
                             isDecimal = false;
                             sign = "+";
                         }
@@ -178,7 +178,7 @@ namespace CalcApp
         {
             bool isMax = false;
 
-            if (!input.Equals(""))
+            if (!String.IsNullOrEmpty(input))
             {
                 ///<summary>
                 ///Extracting Number

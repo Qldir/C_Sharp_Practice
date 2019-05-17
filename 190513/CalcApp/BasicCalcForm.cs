@@ -89,6 +89,7 @@ namespace CalcApp
                 //MaxInput Check
                 if (IsMaxInput(numButton.Name))
                 {
+                    ShowMessage();
                     return;
                 }
 
@@ -154,6 +155,7 @@ namespace CalcApp
                         //MaxInput Check
                         if(IsMaxInput(otherButton.Name))
                         {
+                            ShowMessage();
                             return;
                         }
 
@@ -198,18 +200,23 @@ namespace CalcApp
 
             if (CalcEngine.IsMaxInput())
             {
-                MessageBox.Show("10桁までしか入力できません");
-
                 isMax = true;
             }
             else if(CalcEngine.countDigit == 9 && btnName.Equals("btn00"))
             {
-                btn0.PerformClick();
-
                 isMax = true;
             }
 
             return isMax;
+        }
+
+
+        /// <summary>
+        /// 数字の10桁が超過するとき出力
+        /// </summary>
+        private void ShowMessage()
+        {
+            MessageBox.Show("10桁までしか入力できません");
         }
 
  
@@ -227,7 +234,7 @@ namespace CalcApp
         /// </summary>
         private string ResultFormat(string getResult)
         {
-            if (getResult.Equals(""))
+            if (String.IsNullOrEmpty(getResult))
             {
                 return getResult = "0";
             }
