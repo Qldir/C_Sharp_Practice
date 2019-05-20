@@ -9,21 +9,28 @@ namespace CalcApp
 {
 
 
-    internal class CalcEngine
+    public class CalcEngine
     {
-        private static string input;          //Display Number
-        private static string operation;      //Current operator
-        private static string sign;           //Sign of Number
-        public static bool isDecimal;         //Decimal status
-        public static bool isWait;            //Wait for new input after a number
-        public static int countDigit;         //Count of Digit
+        #region fields
 
-        private static readonly int MaxDigit = 10;     //Max Digit 10
+        private string input;            //Display Number
+        private string recentResult;     //Last Displayed Number
+        private string lastInput;        //Last Input Number
+        private string operation;        //Current operator
+        private string sign;             //Sign of Number
+        public bool isDecimal;           //Decimal status
+        public bool isWait;              //Wait for new input after a number
+        public int countDigit;           //Count of Digit
+
+        public static readonly int MaxDigit = 10;     //Max Digit 10
+
+        #endregion
+
 
         /// <summary>
         /// Init CalcEngine
         /// </summary>
-        static CalcEngine()
+        public CalcEngine()
         {
             input = String.Empty;
             operation = String.Empty;
@@ -36,7 +43,7 @@ namespace CalcApp
         /// <summary>
         /// Reset All Variables
         /// </summary>
-        public static void ClearAll()
+        public void ClearAll()
         {
             input = String.Empty;
             operation = String.Empty;
@@ -51,7 +58,7 @@ namespace CalcApp
         /// 初めて入力が'0'であることを除外
         /// </summary>
         /// <param name="numValue">Double Type</param>
-        public static void AppendNum(double numValue)
+        public void AppendNum(double numValue)
         {
             if ( !(String.IsNullOrEmpty(input) && (numValue == 0)) )
             {
@@ -67,7 +74,7 @@ namespace CalcApp
         /// "00"の場合Int刑変換を通じて'0'でチェック
         /// </summary>
         /// <param name="numValue">Input Number Value</param>arithmetic
-        public static void AppendNum(string numValue)
+        public void AppendNum(string numValue)
         {
             if (!(String.IsNullOrEmpty(input) && (int.Parse(numValue) == 0)))
             {
@@ -81,7 +88,7 @@ namespace CalcApp
         /// 基本演算(+, -, *, /)を処理するメソッド
         /// </summary>
         /// <param name="operatorType">演算(+, -, *, /)タイプ</param>
-        public static void NumericOperation(string operatorType)
+        public void NumericOperation(string operatorType)
         {
 
         }
@@ -91,7 +98,7 @@ namespace CalcApp
         /// 数字入力以外の電卓の機能を処理するメソッド
         /// </summary>
         /// <param name="buttonType"></param>
-        public static void NonNumericOperation(string buttonType)
+        public void NonNumericOperation(string buttonType)
         {
             //Dot
             if (buttonType.Equals("dot"))
@@ -165,7 +172,7 @@ namespace CalcApp
                     }
                 }
             }
-        }//OtherOperations()
+        }//NonNumericOperation()
 
 
         /// <summary>
@@ -174,7 +181,7 @@ namespace CalcApp
         /// string入力値で数字を析出
         /// </summary>
         /// <returns>設定した最大長さになるとbool値trueで変換</returns>
-        public static bool IsMaxInput()
+        public bool IsMaxInput()
         {
             bool isMax = false;
 
@@ -204,7 +211,7 @@ namespace CalcApp
         /// <summary>
         /// 現在の入力された値をreturn
         /// </summary>
-        public static string GetResult()
+        public string GetResult()
         {
             return input;
         }

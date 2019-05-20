@@ -12,10 +12,14 @@ namespace CalcApp
 {
     public partial class CalcForm : Form
     {
+        CalcEngine calcEngine;
+
         public CalcForm()
         {
             InitializeComponent();
+            calcEngine = new CalcEngine();
         }
+
 
         //Key Pressed Event
         private void GetKeyPress(object sender, KeyPressEventArgs e)
@@ -87,8 +91,15 @@ namespace CalcApp
                 int numValue;
 
                 //MaxInput Check
+                //9桁で"00"入力時に"0"入力
                 if (IsMaxInput(numButton.Name))
                 {
+                    if (calcEngine.countDigit == 9 && numButton.Name.Equals("btn00"))
+                    {
+                        btn0.PerformClick();
+                        return;
+                    }
+
                     ShowMessage();
                     return;
                 }
@@ -123,7 +134,7 @@ namespace CalcApp
                         numValue = 9;
                         break;
                     case "btn00":
-                        CalcEngine.AppendNum("00");
+                        calcEngine.AppendNum("00");
                         UpdateResult();
                         return;
                     default:
@@ -131,7 +142,7 @@ namespace CalcApp
                         break;
                 }
 
-                CalcEngine.AppendNum(numValue);
+                calcEngine.AppendNum(numValue);
                 UpdateResult();
 
             }
@@ -161,10 +172,10 @@ namespace CalcApp
 
                         buttonType = "dot";
 
-                        if(!CalcEngine.isDecimal)
+                        if(!calcEngine.isDecimal)
                         {
                             txtResult.Text += ".";
-                            CalcEngine.NonNumericOperation(buttonType);
+                            calcEngine.NonNumericOperation(buttonType);
                             return;
                         }
                         break;
@@ -178,11 +189,11 @@ namespace CalcApp
                         break;
 
                     case "btnAllClear":
-                        CalcEngine.ClearAll();
+                        calcEngine.ClearAll();
                         break;
                 }
 
-                CalcEngine.NonNumericOperation(buttonType);
+                calcEngine.NonNumericOperation(buttonType);
                 UpdateResult();
 
             }
@@ -198,11 +209,11 @@ namespace CalcApp
         {
             bool isMax = false;
 
-            if (CalcEngine.IsMaxInput())
+            if (calcEngine.IsMaxInput())
             {
                 isMax = true;
             }
-            else if(CalcEngine.countDigit == 9 && btnName.Equals("btn00"))
+            else if(calcEngine.countDigit == 9 && btnName.Equals("btn00"))
             {
                 isMax = true;
             }
@@ -223,7 +234,7 @@ namespace CalcApp
         // TxtResult Update Function
         private void UpdateResult()
         {
-            txtResult.Text = ResultFormat(CalcEngine.GetResult());
+            txtResult.Text = ResultFormat(calcEngine.GetResult());
         }
 
 
