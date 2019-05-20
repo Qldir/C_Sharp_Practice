@@ -33,6 +33,8 @@ namespace CalcApp
         public CalcEngine()
         {
             input = String.Empty;
+            recentResult = String.Empty;
+            lastInput = String.Empty;
             operation = String.Empty;
             sign = "+";
             isDecimal = false;
@@ -46,6 +48,8 @@ namespace CalcApp
         public void ClearAll()
         {
             input = String.Empty;
+            recentResult = String.Empty;
+            lastInput = String.Empty;
             operation = String.Empty;
             sign = "+";
             isDecimal = false;
