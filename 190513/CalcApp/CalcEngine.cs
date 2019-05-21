@@ -161,8 +161,10 @@ namespace CalcApp
         {
             if (!String.IsNullOrEmpty(input))
             {
-                //BackSpace at "±0."
-                if ((double.Parse(input) < 1) && (input.Substring(input.Length - 1).Equals(".")))
+                //BackSpace at 1digit
+                //Input Length <= 1   OR
+                //-[0~9] -> 0       0. -> 0
+                if (input.Length <= 1 || (input.Length == 2 && (sign.Equals("-") || input.IndexOf("0") == 0) ))
                 {
                     input = String.Empty;
                     isDecimal = false;
@@ -170,22 +172,12 @@ namespace CalcApp
                 }
                 else
                 {
-                    //BackSpace at 1digit
-                    if (input.Length <= 1 || (input.Length == 2 && sign.Equals("-")))
+                    //BackSpace when the last digit is "."
+                    if (input.Substring(input.Length - 1).Equals("."))
                     {
-                        input = String.Empty;
                         isDecimal = false;
-                        sign = "+";
                     }
-                    else
-                    {
-                        //BackSpace when the last digit is "."
-                        if (input.Substring(input.Length - 1).Equals("."))
-                        {
-                            isDecimal = false;
-                        }
-                        input = input.Remove(input.Length - 1, 1);
-                    }
+                    input = input.Remove(input.Length - 1, 1);
                 }
             }
         }

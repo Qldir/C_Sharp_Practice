@@ -80,6 +80,7 @@ namespace CalcApp
             }
         }//GetKeyPress()
 
+
         /// <summary>
         /// [0~9], [00] Number Button Click
         /// 
@@ -150,6 +151,11 @@ namespace CalcApp
 
             }
         }//ClickNumButton()
+
+        private void ClickOperatorButton(object sender, EventArgs e)
+        {
+
+        }
 
 
         /// <summary>
