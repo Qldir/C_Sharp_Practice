@@ -44,6 +44,7 @@ namespace CalcApp
 
         /// <summary>
         /// Reset All Variables
+        /// Event Method : ClickAllClearButton
         /// </summary>
         public void ClearAll()
         {
@@ -55,10 +56,11 @@ namespace CalcApp
             isDecimal = false;
             countDigit = 0;
         }
-        
+
 
         /// <summary>
         /// AppendNum "0~9"
+        /// Event Method : ClickNumButton
         /// 初めて入力が'0'であることを除外
         /// </summary>
         /// <param name="numValue">Double Type</param>
@@ -74,6 +76,7 @@ namespace CalcApp
 
         /// <summary>
         /// AppendNum 00
+        /// Event Method : ClickNumButton
         /// 初めて入力が0であることを除外
         /// "00"の場合Int刑変換を通じて'0'でチェック
         /// </summary>
@@ -92,64 +95,83 @@ namespace CalcApp
         /// 基本演算(+, -, *, /)を処理するメソッド
         /// </summary>
         /// <param name="operatorType">演算(+, -, *, /)タイプ</param>
-        public void NumericOperation(string operatorType)
+        public void Calculate(string operatorType)
         {
 
         }
 
 
         /// <summary>
-        /// 数字入力以外の電卓の機能を処理するメソッド
+        /// Append Decimal
+        /// Event Method : ClickDecimalButton
+        /// isDecimal == true  -> return
+        /// input == String.Empty -> 0.####
         /// </summary>
-        /// <param name="buttonType"></param>
-        public void NonNumericOperation(string buttonType)
+        public void AppendDecimal()
         {
-            //Dot
-            if (buttonType.Equals("dot"))
+            if (isDecimal)
             {
-                if (isDecimal)
-                {
-                    return;
-                }
+                return;
+            }
 
-                if (input.Equals(""))
+            if (String.IsNullOrEmpty(input))
+            {
+                input = "0.";
+                isDecimal = true;
+            }
+            else
+            {
+                input += ".";
+                isDecimal = true;
+            }
+        }
+
+
+        /// <summary>
+        /// Switch Sign +-
+        /// Event Method : ClickSignButton
+        /// </summary>
+        public void SwitchSign()
+        {
+            if (!String.IsNullOrEmpty(input))
+            {
+                if (sign.Equals("+"))
                 {
-                    input = "0.";
-                    isDecimal = true;
+                    sign = "-";
+                    input = sign + input;
                 }
                 else
                 {
-                    input += ".";
-                    isDecimal = true;
+                    if (sign.Equals("-"))
+                    {
+                        input = input.Remove(0, 1);
+                    }
+                    sign = "+";
                 }
             }
-            //Switch Sign
-            if (buttonType.Equals("sign"))
+        }
+
+
+        /// <summary>
+        /// Remove Digit
+        /// Event Method : ClickBackButton
+        /// - One digit delete
+        /// </summary>
+        public void RemoveDigit()
+        {
+            if (!String.IsNullOrEmpty(input))
             {
-                if(!String.IsNullOrEmpty(input))
+                //BackSpace at "±0."
+                if ((double.Parse(input) < 1) && (input.Substring(input.Length - 1).Equals(".")))
                 {
-                    if (sign.Equals("+"))
-                    {
-                        sign = "-";
-                        input = sign + input;
-                    }
-                    else
-                    {
-                        if (sign.Equals("-"))
-                        {
-                            input = input.Remove(0, 1);
-                        }
-                        sign = "+";
-                    }
+                    input = String.Empty;
+                    isDecimal = false;
+                    sign = "+";
                 }
-            }
-            //BackSpace
-            if (buttonType.Equals("back"))
-            {
-                if(!String.IsNullOrEmpty(input))
+                else
                 {
-                    //BackSpace at "±0."
-                    if (((int)double.Parse(input) == 0) && (input.Substring(input.Length - 1).Equals(".")))
+                    //BackSpace at 1digit
+                    if (input.Length <= 1 || (input.Length == 2 && sign.Equals("-")))
                     {
                         input = String.Empty;
                         isDecimal = false;
@@ -157,29 +179,20 @@ namespace CalcApp
                     }
                     else
                     {
-                        //BackSpace at 1digit
-                        if (input.Length <= 1 || (input.Length == 2 && sign.Equals("-")))
+                        //BackSpace when the last digit is "."
+                        if (input.Substring(input.Length - 1).Equals("."))
                         {
-                            input = String.Empty;
                             isDecimal = false;
-                            sign = "+";
                         }
-                        else
-                        {
-                            //BackSpace when the last digit is "."
-                            if (input.Substring(input.Length - 1).Equals("."))
-                            {
-                                isDecimal = false;
-                            }
-                            input = input.Remove(input.Length - 1, 1);
-                        }
+                        input = input.Remove(input.Length - 1, 1);
                     }
                 }
             }
-        }//NonNumericOperation()
+        }
 
 
         /// <summary>
+        /// IsMaxInput
         /// 入力された数字の長さをチェックして
         /// 現在の数字長さを保存。
         /// string入力値で数字を析出

@@ -56,7 +56,7 @@
             this.btn2 = new System.Windows.Forms.Button();
             this.btn1 = new System.Windows.Forms.Button();
             this.btnPlus = new System.Windows.Forms.Button();
-            this.btnDot = new System.Windows.Forms.Button();
+            this.btnDecimal = new System.Windows.Forms.Button();
             this.btn0 = new System.Windows.Forms.Button();
             this.lblSubText = new System.Windows.Forms.Label();
             this.btn00 = new System.Windows.Forms.Button();
@@ -120,7 +120,7 @@
             resources.ApplyResources(this.btnSign, "btnSign");
             this.btnSign.Name = "btnSign";
             this.btnSign.UseVisualStyleBackColor = true;
-            this.btnSign.Click += new System.EventHandler(this.ClickOtherButton);
+            this.btnSign.Click += new System.EventHandler(this.ClickSignButton);
             // 
             // btnClear
             // 
@@ -135,7 +135,7 @@
             resources.ApplyResources(this.btnAllClear, "btnAllClear");
             this.btnAllClear.Name = "btnAllClear";
             this.btnAllClear.UseVisualStyleBackColor = true;
-            this.btnAllClear.Click += new System.EventHandler(this.ClickOtherButton);
+            this.btnAllClear.Click += new System.EventHandler(this.ClickAllClearButton);
             // 
             // btnBack
             // 
@@ -143,7 +143,7 @@
             this.btnBack.ForeColor = System.Drawing.SystemColors.ControlText;
             this.btnBack.Name = "btnBack";
             this.btnBack.UseVisualStyleBackColor = true;
-            this.btnBack.Click += new System.EventHandler(this.ClickOtherButton);
+            this.btnBack.Click += new System.EventHandler(this.ClickBackButton);
             // 
             // btnPercent
             // 
@@ -266,13 +266,13 @@
             this.btnPlus.Name = "btnPlus";
             this.btnPlus.UseVisualStyleBackColor = true;
             // 
-            // btnDot
+            // btnDecimal
             // 
-            this.btnDot.ForeColor = System.Drawing.SystemColors.ControlText;
-            resources.ApplyResources(this.btnDot, "btnDot");
-            this.btnDot.Name = "btnDot";
-            this.btnDot.UseVisualStyleBackColor = true;
-            this.btnDot.Click += new System.EventHandler(this.ClickOtherButton);
+            this.btnDecimal.ForeColor = System.Drawing.SystemColors.ControlText;
+            resources.ApplyResources(this.btnDecimal, "btnDecimal");
+            this.btnDecimal.Name = "btnDecimal";
+            this.btnDecimal.UseVisualStyleBackColor = true;
+            this.btnDecimal.Click += new System.EventHandler(this.ClickDecimalButton);
             // 
             // btn0
             // 
@@ -318,7 +318,7 @@
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.btn00);
             this.Controls.Add(this.btnPlus);
-            this.Controls.Add(this.btnDot);
+            this.Controls.Add(this.btnDecimal);
             this.Controls.Add(this.btn0);
             this.Controls.Add(this.btnEqual);
             this.Controls.Add(this.btnMns);
@@ -383,7 +383,7 @@
         private System.Windows.Forms.Button btn2;
         private System.Windows.Forms.Button btn1;
         private System.Windows.Forms.Button btnPlus;
-        private System.Windows.Forms.Button btnDot;
+        private System.Windows.Forms.Button btnDecimal;
         private System.Windows.Forms.Button btn0;
         public System.Windows.Forms.Label lblSubText;
         private System.Windows.Forms.Button btn00;

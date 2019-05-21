@@ -75,12 +75,15 @@ namespace CalcApp
                     btnBack.PerformClick();
                     break;
                 case ".":
-                    btnDot.PerformClick();
+                    btnDecimal.PerformClick();
                     break;
             }
         }//GetKeyPress()
 
-
+        /// <summary>
+        /// [0~9], [00] Number Button Click
+        /// 
+        /// </summary>
         private void ClickNumButton(object sender, EventArgs e)
         {
 
@@ -150,54 +153,59 @@ namespace CalcApp
 
 
         /// <summary>
-        /// 数字ボタン以外のベント処理
+        /// Append Decimal
         /// </summary>
-        private void ClickOtherButton(object sender, EventArgs e)
+        private void ClickDecimalButton(object sender, EventArgs e)
         {
-            //Sender Type Check
-            if (sender is Button)
+            Button button = sender as Button;
+
+            //MaxInput Check
+            if (IsMaxInput(button.Name))
             {
-                Button otherButton = sender as Button;
-                string buttonType = "";
-
-                switch (otherButton.Name)
-                {
-                    case "btnDot":
-                        //MaxInput Check
-                        if(IsMaxInput(otherButton.Name))
-                        {
-                            ShowMessage();
-                            return;
-                        }
-
-                        buttonType = "dot";
-
-                        if(!calcEngine.isDecimal)
-                        {
-                            txtResult.Text += ".";
-                            calcEngine.NonNumericOperation(buttonType);
-                            return;
-                        }
-                        break;
-
-                    case "btnSign":
-                        buttonType = "sign";
-                        break;
-
-                    case "btnBack":
-                        buttonType = "back";
-                        break;
-
-                    case "btnAllClear":
-                        calcEngine.ClearAll();
-                        break;
-                }
-
-                calcEngine.NonNumericOperation(buttonType);
-                UpdateResult();
-
+                ShowMessage();
+                return;
             }
-        }//ClickOtherButton
+
+            if (!calcEngine.isDecimal)
+            {
+                txtResult.Text += ".";
+                calcEngine.AppendDecimal();
+                return;
+            }
+
+            calcEngine.AppendDecimal();
+            UpdateResult();
+        }
+
+
+        /// <summary>
+        /// Switch Sign +-
+        /// </summary>
+        private void ClickSignButton(object sender, EventArgs e)
+        {
+            calcEngine.SwitchSign();
+            UpdateResult();
+        }
+
+
+        /// <summary>
+        /// Click ▶ Button (BackSpace)
+        /// </summary>
+        private void ClickBackButton(object sender, EventArgs e)
+        {
+            calcEngine.RemoveDigit();
+            UpdateResult();
+        }
+
+
+        /// <summary>
+        /// Click AC button
+        /// </summary>
+        private void ClickAllClearButton(object sender, EventArgs e)
+        {
+            calcEngine.ClearAll();
+            UpdateResult();
+        }
 
 
         /// <summary>
