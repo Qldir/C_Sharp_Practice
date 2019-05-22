@@ -227,6 +227,7 @@
             resources.ApplyResources(this.btnEqual, "btnEqual");
             this.btnEqual.Name = "btnEqual";
             this.btnEqual.UseVisualStyleBackColor = true;
+            this.btnEqual.Click += new System.EventHandler(this.ClickEqualButton);
             // 
             // btnMns
             // 
@@ -352,7 +353,7 @@
             this.panel1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
-
+            this.btnEqual.Select();
         }
 
         #endregion

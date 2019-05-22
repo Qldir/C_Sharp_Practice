@@ -24,7 +24,8 @@ namespace CalcApp
         //Key Pressed Event
         private void GetKeyPress(object sender, KeyPressEventArgs e)
         {
-            MessageBox.Show(e.KeyChar.ToString());
+            btnEqual.Focus();
+            
             switch (e.KeyChar.ToString())
             {
                 case "0":
@@ -77,6 +78,8 @@ namespace CalcApp
                     break;
                 case ".":
                     btnDecimal.PerformClick();
+                    break;
+                default:
                     break;
             }
         }//GetKeyPress()
@@ -152,6 +155,12 @@ namespace CalcApp
 
             }
         }//ClickNumButton()
+
+        private void ClickEqualButton(object sender, EventArgs e)
+        {
+            MessageBox.Show("Enter");
+        }
+
 
         private void ClickOperatorButton(object sender, EventArgs e)
         {
