@@ -24,6 +24,7 @@ namespace CalcApp
         //Key Pressed Event
         private void GetKeyPress(object sender, KeyPressEventArgs e)
         {
+            MessageBox.Show(e.KeyChar.ToString());
             switch (e.KeyChar.ToString())
             {
                 case "0":

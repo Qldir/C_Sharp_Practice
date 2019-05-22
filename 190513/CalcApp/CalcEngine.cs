@@ -133,21 +133,23 @@ namespace CalcApp
         /// </summary>
         public void SwitchSign()
         {
-            if (!String.IsNullOrEmpty(input))
+            if (String.IsNullOrEmpty(input))
             {
-                if (sign.Equals("+"))
+                return;
+            }
+
+            if (sign.Equals("+"))
+            {
+                sign = "-";
+                input = sign + input;
+            }
+            else
+            {
+                if (sign.Equals("-"))
                 {
-                    sign = "-";
-                    input = sign + input;
+                    input = input.Remove(0, 1);
                 }
-                else
-                {
-                    if (sign.Equals("-"))
-                    {
-                        input = input.Remove(0, 1);
-                    }
-                    sign = "+";
-                }
+                sign = "+";
             }
         }
 
@@ -159,27 +161,34 @@ namespace CalcApp
         /// </summary>
         public void RemoveDigit()
         {
-            if (!String.IsNullOrEmpty(input))
+            if (String.IsNullOrEmpty(input))
             {
-                //BackSpace at 1digit
-                //Input Length <= 1   OR
-                //-[0~9] -> 0       0. -> 0
-                if (input.Length <= 1 || (input.Length == 2 && (sign.Equals("-") || input.IndexOf("0") == 0) ))
-                {
-                    input = String.Empty;
-                    isDecimal = false;
-                    sign = "+";
-                }
-                else
-                {
-                    //BackSpace when the last digit is "."
-                    if (input.Substring(input.Length - 1).Equals("."))
-                    {
-                        isDecimal = false;
-                    }
-                    input = input.Remove(input.Length - 1, 1);
-                }
+                return;
             }
+
+            //(input.Length <= 1) || (input.Length == 2 && sign.Equals("-")) || (input.Equals("0."))
+            if (IsRemoveDigit())
+            {
+                input = String.Empty;
+                isDecimal = false;
+                sign = "+";
+
+                return;
+            }
+
+            //BackSpace when the last digit is "."
+            if (input.Substring(input.Length - 1).Equals("."))
+            {
+                isDecimal = false;
+            }
+
+            input = input.Remove(input.Length - 1, 1);
+        }
+
+
+        private bool IsRemoveDigit()
+        {
+            return (input.Length <= 1) || (input.Length == 2 && sign.Equals("-")) || (input.Equals("0."));
         }
 
 
@@ -194,23 +203,26 @@ namespace CalcApp
         {
             bool isMax = false;
 
-            if (!String.IsNullOrEmpty(input))
+
+            if (String.IsNullOrEmpty(input))
             {
-                ///<summary>
-                ///Extracting Number
-                ///Regex.Replace(string input, string pattern, string replacement);
-                ///Replace pattern(@"\D") is [^0-9]
-                ///正規表現を利用して数字以外の文字を変換
-                ///例 : -123.441  ->  123441
-                ///</summary>
-                string extractNumber = Regex.Replace(input, @"\D", "");
+                return isMax;
+            }
 
-                countDigit = extractNumber.Length;
+            ///<summary>
+            ///Extracting Number
+            ///Regex.Replace(string input, string pattern, string replacement);
+            ///Replace pattern(@"\D") is [^0-9]
+            ///正規表現を利用して数字以外の文字を変換
+            ///例 : -123.441  ->  123441
+            ///</summary>
+            string extractNumber = Regex.Replace(input, @"\D", "");
 
-                if (countDigit >= MaxDigit)
-                {
-                    isMax = true;
-                }
+            countDigit = extractNumber.Length;
+
+            if (countDigit >= MaxDigit)
+            {
+                isMax = true;
             }
 
             return isMax;
