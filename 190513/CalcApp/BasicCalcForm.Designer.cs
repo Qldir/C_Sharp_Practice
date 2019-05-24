@@ -60,9 +60,9 @@
             this.btn0 = new System.Windows.Forms.Button();
             this.lblSubText = new System.Windows.Forms.Label();
             this.btn00 = new System.Windows.Forms.Button();
-            this.panel1 = new System.Windows.Forms.Panel();
+            this.pnlBackGround = new System.Windows.Forms.Panel();
             this.lblOnText = new System.Windows.Forms.Label();
-            this.panel1.SuspendLayout();
+            this.pnlBackGround.SuspendLayout();
             this.SuspendLayout();
             // 
             // txtResult
@@ -92,6 +92,13 @@
             this.btnIncludedTax.ForeColor = System.Drawing.SystemColors.ControlText;
             this.btnIncludedTax.Name = "btnIncludedTax";
             this.btnIncludedTax.UseVisualStyleBackColor = true;
+            // 
+            // btnExcludedTax
+            // 
+            resources.ApplyResources(this.btnExcludedTax, "btnExcludedTax");
+            this.btnExcludedTax.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.btnExcludedTax.Name = "btnExcludedTax";
+            this.btnExcludedTax.UseVisualStyleBackColor = true;
             // 
             // btnMemAdd
             // 
@@ -152,13 +159,6 @@
             this.btnPercent.Name = "btnPercent";
             this.btnPercent.UseVisualStyleBackColor = true;
             // 
-            // btnDiv
-            // 
-            this.btnDiv.ForeColor = System.Drawing.SystemColors.ControlText;
-            resources.ApplyResources(this.btnDiv, "btnDiv");
-            this.btnDiv.Name = "btnDiv";
-            this.btnDiv.UseVisualStyleBackColor = true;
-            // 
             // btn9
             // 
             this.btn9.ForeColor = System.Drawing.SystemColors.ControlText;
@@ -182,20 +182,6 @@
             this.btn7.Name = "btn7";
             this.btn7.UseVisualStyleBackColor = true;
             this.btn7.Click += new System.EventHandler(this.ClickNumButton);
-            // 
-            // btnExcludedTax
-            // 
-            resources.ApplyResources(this.btnExcludedTax, "btnExcludedTax");
-            this.btnExcludedTax.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.btnExcludedTax.Name = "btnExcludedTax";
-            this.btnExcludedTax.UseVisualStyleBackColor = true;
-            // 
-            // btnMul
-            // 
-            this.btnMul.ForeColor = System.Drawing.SystemColors.ControlText;
-            resources.ApplyResources(this.btnMul, "btnMul");
-            this.btnMul.Name = "btnMul";
-            this.btnMul.UseVisualStyleBackColor = true;
             // 
             // btn6
             // 
@@ -221,21 +207,6 @@
             this.btn4.UseVisualStyleBackColor = true;
             this.btn4.Click += new System.EventHandler(this.ClickNumButton);
             // 
-            // btnEqual
-            // 
-            this.btnEqual.ForeColor = System.Drawing.SystemColors.ControlText;
-            resources.ApplyResources(this.btnEqual, "btnEqual");
-            this.btnEqual.Name = "btnEqual";
-            this.btnEqual.UseVisualStyleBackColor = true;
-            this.btnEqual.Click += new System.EventHandler(this.ClickEqualButton);
-            // 
-            // btnMns
-            // 
-            this.btnMns.ForeColor = System.Drawing.SystemColors.ControlText;
-            resources.ApplyResources(this.btnMns, "btnMns");
-            this.btnMns.Name = "btnMns";
-            this.btnMns.UseVisualStyleBackColor = true;
-            // 
             // btn3
             // 
             this.btn3.ForeColor = System.Drawing.SystemColors.ControlText;
@@ -260,12 +231,65 @@
             this.btn1.UseVisualStyleBackColor = true;
             this.btn1.Click += new System.EventHandler(this.ClickNumButton);
             // 
+            // btn0
+            // 
+            this.btn0.ForeColor = System.Drawing.SystemColors.ControlText;
+            resources.ApplyResources(this.btn0, "btn0");
+            this.btn0.Name = "btn0";
+            this.btn0.UseVisualStyleBackColor = true;
+            this.btn0.Click += new System.EventHandler(this.ClickNumButton);
+            // 
+            // btn00
+            // 
+            this.btn00.ForeColor = System.Drawing.SystemColors.ControlText;
+            resources.ApplyResources(this.btn00, "btn00");
+            this.btn00.Name = "btn00";
+            this.btn00.UseVisualStyleBackColor = true;
+            this.btn00.Click += new System.EventHandler(this.ClickNumButton);
+
+            //=================[Operator Button]===========================================
+            // 
             // btnPlus
             // 
             this.btnPlus.ForeColor = System.Drawing.SystemColors.ControlText;
             resources.ApplyResources(this.btnPlus, "btnPlus");
             this.btnPlus.Name = "btnPlus";
             this.btnPlus.UseVisualStyleBackColor = true;
+            this.btnPlus.Click += new System.EventHandler(this.ClickOperatorButton);
+            // 
+            // btnMns
+            // 
+            this.btnMns.ForeColor = System.Drawing.SystemColors.ControlText;
+            resources.ApplyResources(this.btnMns, "btnMns");
+            this.btnMns.Name = "btnMns";
+            this.btnMns.UseVisualStyleBackColor = true;
+            this.btnMns.Click += new System.EventHandler(this.ClickOperatorButton);
+            // 
+            // btnMul
+            // 
+            this.btnMul.ForeColor = System.Drawing.SystemColors.ControlText;
+            resources.ApplyResources(this.btnMul, "btnMul");
+            this.btnMul.Name = "btnMul";
+            this.btnMul.UseVisualStyleBackColor = true;
+            this.btnMul.Click += new System.EventHandler(this.ClickOperatorButton);
+            // 
+            // btnDiv
+            // 
+            this.btnDiv.ForeColor = System.Drawing.SystemColors.ControlText;
+            resources.ApplyResources(this.btnDiv, "btnDiv");
+            this.btnDiv.Name = "btnDiv";
+            this.btnDiv.UseVisualStyleBackColor = true;
+            this.btnDiv.Click += new System.EventHandler(this.ClickOperatorButton);
+            // 
+            // btnEqual
+            // 
+            this.btnEqual.ForeColor = System.Drawing.SystemColors.ControlText;
+            resources.ApplyResources(this.btnEqual, "btnEqual");
+            this.btnEqual.Name = "btnEqual";
+            this.btnEqual.UseVisualStyleBackColor = true;
+            this.btnEqual.Click += new System.EventHandler(this.ClickEqualButton);
+            //============================================================================
+
             // 
             // btnDecimal
             // 
@@ -275,35 +299,19 @@
             this.btnDecimal.UseVisualStyleBackColor = true;
             this.btnDecimal.Click += new System.EventHandler(this.ClickDecimalButton);
             // 
-            // btn0
+            // pnlBackGround
             // 
-            this.btn0.ForeColor = System.Drawing.SystemColors.ControlText;
-            resources.ApplyResources(this.btn0, "btn0");
-            this.btn0.Name = "btn0";
-            this.btn0.UseVisualStyleBackColor = true;
-            this.btn0.Click += new System.EventHandler(this.ClickNumButton);
+            this.pnlBackGround.BackColor = System.Drawing.SystemColors.ControlDarkDark;
+            this.pnlBackGround.Controls.Add(this.lblSubText);
+            this.pnlBackGround.Controls.Add(this.txtResult);
+            resources.ApplyResources(this.pnlBackGround, "pnlBackGround");
+            this.pnlBackGround.Name = "pnlBackGround";
             // 
             // lblSubText
             // 
             resources.ApplyResources(this.lblSubText, "lblSubText");
             this.lblSubText.BackColor = System.Drawing.SystemColors.Control;
             this.lblSubText.Name = "lblSubText";
-            // 
-            // btn00
-            // 
-            this.btn00.ForeColor = System.Drawing.SystemColors.ControlText;
-            resources.ApplyResources(this.btn00, "btn00");
-            this.btn00.Name = "btn00";
-            this.btn00.UseVisualStyleBackColor = true;
-            this.btn00.Click += new System.EventHandler(this.ClickNumButton);
-            // 
-            // panel1
-            // 
-            this.panel1.BackColor = System.Drawing.SystemColors.ControlDarkDark;
-            this.panel1.Controls.Add(this.lblSubText);
-            this.panel1.Controls.Add(this.txtResult);
-            resources.ApplyResources(this.panel1, "panel1");
-            this.panel1.Name = "panel1";
             // 
             // lblOnText
             // 
@@ -316,7 +324,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Control;
             this.Controls.Add(this.lblOnText);
-            this.Controls.Add(this.panel1);
+            this.Controls.Add(this.pnlBackGround);
             this.Controls.Add(this.btn00);
             this.Controls.Add(this.btnPlus);
             this.Controls.Add(this.btnDecimal);
@@ -349,11 +357,11 @@
             this.KeyPreview = true;
             this.Name = "CalcForm";
             this.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.GetKeyPress);
-            this.panel1.ResumeLayout(false);
-            this.panel1.PerformLayout();
+            this.pnlBackGround.ResumeLayout(false);
+            this.pnlBackGround.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
-            this.btnEqual.Select();
+
         }
 
         #endregion
@@ -388,7 +396,7 @@
         private System.Windows.Forms.Button btn0;
         public System.Windows.Forms.Label lblSubText;
         private System.Windows.Forms.Button btn00;
-        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.Panel pnlBackGround;
         private System.Windows.Forms.Label lblOnText;
     }
 }

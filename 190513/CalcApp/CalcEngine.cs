@@ -14,7 +14,7 @@ namespace CalcApp
         #region fields
 
         private string input;            //Display Number
-        private string recentResult;     //Last Displayed Number
+        private double recentResult;     //Last Displayed Number
         private string lastInput;        //Last Input Number
         private string operation;        //Current operator
         private string sign;             //Sign of Number
@@ -33,7 +33,7 @@ namespace CalcApp
         public CalcEngine()
         {
             input = String.Empty;
-            recentResult = String.Empty;
+            recentResult = 0;
             lastInput = String.Empty;
             operation = String.Empty;
             sign = "+";
@@ -49,11 +49,22 @@ namespace CalcApp
         public void ClearAll()
         {
             input = String.Empty;
-            recentResult = String.Empty;
+            recentResult = 0;
             lastInput = String.Empty;
             operation = String.Empty;
             sign = "+";
             isDecimal = false;
+            isWait = false;
+            countDigit = 0;
+        }
+
+
+        public void Clear()
+        {
+            input = String.Empty;
+            sign = "+";
+            isDecimal = false;
+            isWait = false;
             countDigit = 0;
         }
 
@@ -66,6 +77,8 @@ namespace CalcApp
         /// <param name="numValue">Double Type</param>
         public void AppendNum(double numValue)
         {
+            AppendNumAfterWait();
+
             if ( !(String.IsNullOrEmpty(input) && (numValue == 0)) )
             {
                 input += "" + numValue;
@@ -83,21 +96,12 @@ namespace CalcApp
         /// <param name="numValue">Input Number Value</param>arithmetic
         public void AppendNum(string numValue)
         {
+            AppendNumAfterWait();
+
             if (!(String.IsNullOrEmpty(input) && (int.Parse(numValue) == 0)))
             {
                 input += numValue;
             }
-        }
-
-
-        /// <summary>
-        /// Arithmetic Operation
-        /// 基本演算(+, -, *, /)を処理するメソッド
-        /// </summary>
-        /// <param name="operatorType">演算(+, -, *, /)タイプ</param>
-        public void Calculate(string operatorType)
-        {
-
         }
 
 
@@ -109,6 +113,8 @@ namespace CalcApp
         /// </summary>
         public void AppendDecimal()
         {
+            AppendNumAfterWait();
+
             if (isDecimal)
             {
                 return;
@@ -124,6 +130,61 @@ namespace CalcApp
                 input += ".";
                 isDecimal = true;
             }
+        }
+
+
+        /// <summary>
+        /// if(isWait) { isWait = false; input = String.Empty; }
+        /// </summary>
+        private void AppendNumAfterWait()
+        {
+            if (isWait)
+            {
+                Clear();
+            }
+        }
+
+
+        /// <summary>
+        /// Arithmetic Operation
+        /// Event Method : ClickOperatorButton
+        /// 基本演算(+, -, *, /)を処理するメソッド
+        /// ÷,×, -, +
+        /// </summary>
+        /// <param name="operatorType">演算(+, -, *, /)タイプ</param>
+        public void Calculate(string operatorType)
+        {
+            operation = operatorType;
+
+            if (isWait)
+            {
+                return;
+            }
+
+            if (String.IsNullOrEmpty(lastInput))
+            {
+                lastInput = input;
+                isWait = true;
+                return;
+            }
+
+            switch (operatorType)
+            {
+                case "+":
+                    recentResult = Convert.ToDouble(lastInput) + Convert.ToDouble(input);
+                    break;
+                case "-":
+                    recentResult = Convert.ToDouble(lastInput) - Convert.ToDouble(input);
+                    break;
+                case "×":
+                    break;
+                case "÷":
+                    break;
+            }
+
+            input = Convert.ToString(recentResult);
+            lastInput = input;
+            isWait = true;
         }
 
 
@@ -204,7 +265,7 @@ namespace CalcApp
             bool isMax = false;
 
 
-            if (String.IsNullOrEmpty(input))
+            if (String.IsNullOrEmpty(input) || isWait)
             {
                 return isMax;
             }
@@ -230,11 +291,47 @@ namespace CalcApp
 
 
         /// <summary>
+        /// Limit the number of digits
+        /// 出力値の桁を10文字まで限る
+        /// 1000000000 + 9000000000 = 1000000000
+        /// 0.123 + 12345678 = 12345678.12
+        /// </summary>
+        /// <param name="resultNumber"></param>
+        /// <returns></returns>
+        private string LimitDigit(string resultNumber)
+        {
+            string extractNumber = Regex.Replace(resultNumber, @"\D", "");
+
+            if(extractNumber.Length <= MaxDigit)
+            {
+                return resultNumber;
+            }
+
+            int maxLength = MaxDigit;
+
+            if (sign.Equals("-"))
+            {
+                maxLength++;
+            }
+
+            if (input.IndexOf(".") != -1)
+            {
+                maxLength++;
+            }
+
+            resultNumber = resultNumber.Substring(0, maxLength);
+            lastInput = resultNumber;
+
+            return resultNumber;
+        }
+
+
+        /// <summary>
         /// 現在の入力された値をreturn
         /// </summary>
         public string GetResult()
         {
-            return input;
+            return LimitDigit(input);
         }
 
     }
