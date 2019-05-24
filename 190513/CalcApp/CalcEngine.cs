@@ -14,7 +14,7 @@ namespace CalcApp
         #region fields
 
         private string input;            //Display Number
-        private double recentResult;     //Last Displayed Number
+        private decimal recentResult;     //Last Displayed Number
         private string lastInput;        //Last Input Number
         private string operation;        //Current operator
         private string sign;             //Sign of Number
@@ -78,11 +78,20 @@ namespace CalcApp
         public void AppendNum(double numValue)
         {
             AppendNumAfterWait();
-
-            if ( !(String.IsNullOrEmpty(input) && (numValue == 0)) )
+            //값이 0일때 다른수넣으면 붙이는게 아닌 입력
+            if (String.IsNullOrEmpty(input))
             {
                 input += "" + numValue;
+                return;
             }
+
+            if(input.Equals("0"))
+            {
+                input = "" + numValue;
+                return;
+            }
+
+            input += "" + numValue;
 
         }
 
@@ -141,6 +150,14 @@ namespace CalcApp
             if (isWait)
             {
                 Clear();
+                return;
+            }
+
+            if (operation.Equals("="))
+            {
+                Clear();
+                operation = String.Empty;
+                return;
             }
         }
 
@@ -148,43 +165,74 @@ namespace CalcApp
         /// <summary>
         /// Arithmetic Operation
         /// Event Method : ClickOperatorButton
-        /// 基本演算(+, -, *, /)を処理するメソッド
-        /// ÷,×, -, +
+        /// 基本演算(+, -, *, /, =)を処理するメソッド
+        /// ÷,×, -, +, =
         /// </summary>
-        /// <param name="operatorType">演算(+, -, *, /)タイプ</param>
+        /// <param name="operatorType">演算(+, -, *, /, =)タイプ</param>
         public void Calculate(string operatorType)
         {
-            operation = operatorType;
 
             if (isWait)
             {
+                operation = operatorType;
                 return;
+            }
+
+            if (String.IsNullOrEmpty(input))
+            {
+                input = "0";
             }
 
             if (String.IsNullOrEmpty(lastInput))
             {
                 lastInput = input;
                 isWait = true;
+                operation = operatorType;
                 return;
             }
 
-            switch (operatorType)
+            switch (operation)
             {
                 case "+":
-                    recentResult = Convert.ToDouble(lastInput) + Convert.ToDouble(input);
+                    recentResult = Convert.ToDecimal(lastInput) + Convert.ToDecimal(input);
                     break;
                 case "-":
-                    recentResult = Convert.ToDouble(lastInput) - Convert.ToDouble(input);
+                    recentResult = Convert.ToDecimal(lastInput) - Convert.ToDecimal(input);
                     break;
                 case "×":
+                    recentResult = Convert.ToDecimal(lastInput) * Convert.ToDecimal(input);
                     break;
                 case "÷":
+                    recentResult = Convert.ToDecimal(lastInput) / Convert.ToDecimal(input);
+                    break;
+                case "=":
+                    //Add GT
+                    break;
+                default:
+                    Console.WriteLine("Invalid Parameter Value");
                     break;
             }
 
+            if (recentResult < 0)
+            {
+                sign = "-";
+            }
+
             input = Convert.ToString(recentResult);
+
+            operation = operatorType;
+
+            if (operation.Equals("="))
+            {
+                lastInput = String.Empty;
+                isWait = false;
+                return;
+            }
+
             lastInput = input;
+
             isWait = true;
+
         }
 
 
@@ -290,14 +338,18 @@ namespace CalcApp
         }//isMaxInput()
 
 
+        public string GetOperation()
+        {
+            return operation;
+        }
+
+
         /// <summary>
         /// Limit the number of digits
         /// 出力値の桁を10文字まで限る
-        /// 1000000000 + 9000000000 = 1000000000
         /// 0.123 + 12345678 = 12345678.12
+        /// 0.000000001 X 0.5 = 0
         /// </summary>
-        /// <param name="resultNumber"></param>
-        /// <returns></returns>
         private string LimitDigit(string resultNumber)
         {
             string extractNumber = Regex.Replace(resultNumber, @"\D", "");
@@ -320,6 +372,12 @@ namespace CalcApp
             }
 
             resultNumber = resultNumber.Substring(0, maxLength);
+
+            if(Convert.ToDecimal(resultNumber) == 0)
+            {
+                resultNumber = "0";
+            }
+
             lastInput = resultNumber;
 
             return resultNumber;

@@ -287,7 +287,7 @@
             resources.ApplyResources(this.btnEqual, "btnEqual");
             this.btnEqual.Name = "btnEqual";
             this.btnEqual.UseVisualStyleBackColor = true;
-            this.btnEqual.Click += new System.EventHandler(this.ClickEqualButton);
+            this.btnEqual.Click += new System.EventHandler(this.ClickOperatorButton);
             //============================================================================
 
             // 

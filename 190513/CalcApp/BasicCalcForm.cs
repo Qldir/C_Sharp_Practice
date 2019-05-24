@@ -157,19 +157,13 @@ namespace CalcApp
         }//ClickNumButton()
 
 
-        private void ClickEqualButton(object sender, EventArgs e)
-        {
-            lblSubText.Text = String.Empty;
-        }
-
-        // 입력값이 없을때 연산자가 오면 앞의 입력값을 0으로 해줌
-        // 연속으로 연산자 호출 시 마지막 연산자로 입력
-        // 연산자 입력 후 숫자 입력하면 다음 단계로 넘어감
+        /// <summary>
+        /// Operator Button Click
+        /// 基本演算(+, -, *, /, =)を処理
+        /// </summary>
         private void ClickOperatorButton(object sender, EventArgs e)
         {
             Button button = sender as Button;
-
-            lblSubText.Text = button.Text;
 
             calcEngine.Calculate(button.Text);
             UpdateResult();
@@ -263,9 +257,20 @@ namespace CalcApp
         }
 
  
-        // TxtResult Update Function
+        // TxtResult, SubText Update Function
         private void UpdateResult()
         {
+            string operation = calcEngine.GetOperation();
+
+            if (operation.Equals("="))
+            {
+                lblSubText.Text = String.Empty;
+            }
+            else
+            {
+                lblSubText.Text = operation;
+            }
+
             txtResult.Text = ResultFormat(calcEngine.GetResult());
         }
 
