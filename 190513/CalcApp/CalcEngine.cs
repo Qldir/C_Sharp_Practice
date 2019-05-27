@@ -220,6 +220,9 @@ namespace CalcApp
 
             input = Convert.ToString(recentResult);
 
+            //小数点フォーマット適用
+            ApplyDecimalPattern();
+
             operation = operatorType;
 
             if (operation.Equals("="))
@@ -313,7 +316,7 @@ namespace CalcApp
             bool isMax = false;
 
 
-            if (String.IsNullOrEmpty(input) || isWait)
+            if (String.IsNullOrEmpty(input) || isWait || operation.Equals("="))
             {
                 return isMax;
             }
@@ -354,7 +357,7 @@ namespace CalcApp
         {
             string extractNumber = Regex.Replace(resultNumber, @"\D", "");
 
-            if(extractNumber.Length <= MaxDigit)
+            if (extractNumber.Length <= MaxDigit)
             {
                 return resultNumber;
             }
@@ -366,21 +369,48 @@ namespace CalcApp
                 maxLength++;
             }
 
-            if (input.IndexOf(".") != -1)
+            if (resultNumber.IndexOf(".") != -1)
             {
                 maxLength++;
             }
 
-            resultNumber = resultNumber.Substring(0, maxLength);
-
-            if(Convert.ToDecimal(resultNumber) == 0)
+            if (resultNumber.IndexOf(".") == 10)
             {
-                resultNumber = "0";
+                maxLength--;
             }
 
-            lastInput = resultNumber;
+            input = resultNumber.Substring(0, maxLength);
 
-            return resultNumber;
+            // 小数点があるときだけ表示
+            ApplyDecimalPattern();
+
+            lastInput = input;
+
+            return input;
+        }
+
+
+        /// <summary>
+        /// 演算結果に適用
+        /// 小数点があるときだけ表示
+        /// </summary>
+        private void ApplyDecimalPattern()
+        {
+            if(input.IndexOf(".") == -1)
+            {
+                return;
+            }
+
+            while ((input.IndexOf(".") != -1) && (input.LastIndexOf("0") == input.Length - 1))
+            {
+                RemoveDigit();
+            }
+
+            if (input.IndexOf(".") == input.Length - 1)
+            {
+                RemoveDigit();
+                return;
+            }
         }
 
 
