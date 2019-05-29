@@ -221,7 +221,18 @@ namespace CalcApp
         /// </summary>
         private void ClickAllClearButton(object sender, EventArgs e)
         {
+            pnlBtn.Enabled = true;
             calcEngine.ClearAll();
+            UpdateResult();
+        }
+
+        private void ClickClearButton(object sender, EventArgs e)
+        {
+            if (calcEngine.isError)
+            {
+                pnlBtn.Enabled = true;
+            }
+            calcEngine.Clear();
             UpdateResult();
         }
 
@@ -257,21 +268,39 @@ namespace CalcApp
         }
 
  
-        // TxtResult, SubText Update Function
+        // TxtResult, Label Update Function
         private void UpdateResult()
         {
-            string operation = calcEngine.GetOperation();
+            UpdateLabelText();
 
-            if (operation.Equals("="))
+            txtResult.Text = ResultFormat(calcEngine.GetResult());
+        }
+
+
+        /// <summary>
+        /// Label Text Update
+        /// GT, M, E 表示
+        /// </summary>
+        private void UpdateLabelText()
+        {
+            if (calcEngine.operation.Equals("="))
             {
-                lblSubText.Text = String.Empty;
+                lblOperator.Text = String.Empty;
             }
             else
             {
-                lblSubText.Text = operation;
+                lblOperator.Text = calcEngine.operation;
             }
 
-            txtResult.Text = ResultFormat(calcEngine.GetResult());
+            if (calcEngine.isError)
+            {
+                lblError.Text = "E";
+                pnlBtn.Enabled = false;
+            }
+            else
+            {
+                lblError.Text = String.Empty;
+            }
         }
 
 

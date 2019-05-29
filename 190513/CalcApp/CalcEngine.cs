@@ -14,12 +14,15 @@ namespace CalcApp
         #region fields
 
         private string input;            //Display Number
-        private decimal recentResult;     //Last Displayed Number
+        private decimal recentResult;    //Last Displayed Number
         private string lastInput;        //Last Input Number
-        private string operation;        //Current operator
+        public string operation;        //Current operator
         private string sign;             //Sign of Number
         public bool isDecimal;           //Decimal status
         public bool isWait;              //Wait for new input after a number
+        public bool isError;             //Error status
+        public bool isGrandTotal;        //GrandTotal status
+        public bool isMemory;            //Memory status
         public int countDigit;           //Count of Digit
 
         public static readonly int MaxDigit = 10;     //Max Digit 10
@@ -56,6 +59,9 @@ namespace CalcApp
             isDecimal = false;
             isWait = false;
             countDigit = 0;
+            isError = false;
+            isGrandTotal = false;
+            isMemory = false;
         }
 
 
@@ -65,6 +71,7 @@ namespace CalcApp
             sign = "+";
             isDecimal = false;
             isWait = false;
+            isError = false;
             countDigit = 0;
         }
 
@@ -203,6 +210,12 @@ namespace CalcApp
                     recentResult = Convert.ToDecimal(lastInput) * Convert.ToDecimal(input);
                     break;
                 case "÷":
+                    if(Convert.ToDecimal(input) == 0)
+                    {
+                        recentResult = 0;
+                        isError = true;
+                        break;
+                    }
                     recentResult = Convert.ToDecimal(lastInput) / Convert.ToDecimal(input);
                     break;
                 case "=":
@@ -409,7 +422,6 @@ namespace CalcApp
             if (input.IndexOf(".") == input.Length - 1)
             {
                 RemoveDigit();
-                return;
             }
         }
 
