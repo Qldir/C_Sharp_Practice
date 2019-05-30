@@ -232,7 +232,16 @@ namespace CalcApp
             {
                 pnlBtn.Enabled = true;
             }
-            calcEngine.Clear();
+
+            if (calcEngine.isWait)
+            {
+                calcEngine.ClearAll();
+            }
+            else
+            {
+                calcEngine.Clear();
+            }
+
             UpdateResult();
         }
 

@@ -85,16 +85,15 @@ namespace CalcApp
         public void AppendNum(double numValue)
         {
             AppendNumAfterWait();
-            //값이 0일때 다른수넣으면 붙이는게 아닌 입력
+
             if (String.IsNullOrEmpty(input))
             {
-                input += "" + numValue;
+                input = "" + numValue;
                 return;
             }
 
-            if(input.Equals("0"))
+            if(IsZeroValue())
             {
-                input = "" + numValue;
                 return;
             }
 
@@ -114,10 +113,27 @@ namespace CalcApp
         {
             AppendNumAfterWait();
 
-            if (!(String.IsNullOrEmpty(input) && (int.Parse(numValue) == 0)))
-            {
-                input += numValue;
+            if(String.IsNullOrEmpty(input)){
+                input = "0";
+                return;
             }
+
+            if (IsZeroValue())
+            {
+                return;
+            }
+
+            input += numValue;
+        }
+
+
+        /// <summary>
+        /// !isDecimal AND Convert.ToDecimal(input) == 0
+        /// </summary>
+        /// <returns></returns>
+        private bool IsZeroValue()
+        {
+            return !isDecimal && Convert.ToDecimal(input) == 0;
         }
 
 
@@ -154,18 +170,18 @@ namespace CalcApp
         /// </summary>
         private void AppendNumAfterWait()
         {
+            if (operation.Equals("="))
+            {
+                ClearAll();
+                return;
+            }
+
             if (isWait)
             {
                 Clear();
                 return;
             }
 
-            if (operation.Equals("="))
-            {
-                Clear();
-                operation = String.Empty;
-                return;
-            }
         }
 
 
@@ -179,6 +195,7 @@ namespace CalcApp
         public void Calculate(string operatorType)
         {
 
+            //--------------------------------------------
             if (isWait)
             {
                 operation = operatorType;
@@ -192,11 +209,13 @@ namespace CalcApp
 
             if (String.IsNullOrEmpty(lastInput))
             {
+                ApplyDecimalPattern();
                 lastInput = input;
                 isWait = true;
                 operation = operatorType;
                 return;
             }
+            //---------------------------------------
 
             switch (operation)
             {
@@ -219,6 +238,7 @@ namespace CalcApp
                     recentResult = Convert.ToDecimal(lastInput) / Convert.ToDecimal(input);
                     break;
                 case "=":
+                    recentResult = Convert.ToDecimal(input);
                     //Add GT
                     break;
                 default:
@@ -301,13 +321,17 @@ namespace CalcApp
                 return;
             }
 
+            //削除する文字数
+            int removeCount = 1;
+
             //BackSpace when the last digit is "."
             if (input.Substring(input.Length - 1).Equals("."))
             {
                 isDecimal = false;
+                removeCount++;
             }
 
-            input = input.Remove(input.Length - 1, 1);
+            input = input.Remove(input.Length - removeCount, removeCount);
         }
 
 
@@ -377,12 +401,7 @@ namespace CalcApp
 
             int maxLength = MaxDigit;
 
-            if (sign.Equals("-"))
-            {
-                maxLength++;
-            }
-
-            if (resultNumber.IndexOf(".") != -1)
+            if (sign.Equals("-") || resultNumber.IndexOf(".") != -1)
             {
                 maxLength++;
             }
@@ -421,7 +440,7 @@ namespace CalcApp
 
             if (input.IndexOf(".") == input.Length - 1)
             {
-                RemoveDigit();
+                input = input.Remove(input.Length - 1, 1);
             }
         }
 
