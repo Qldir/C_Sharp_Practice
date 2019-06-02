@@ -10,11 +10,11 @@ using System.Windows.Forms;
 
 namespace CalcApp
 {
-    public partial class CalcForm : Form
+    public partial class BasicCalcForm : Form
     {
         CalcEngine calcEngine;
 
-        public CalcForm()
+        public BasicCalcForm()
         {
             InitializeComponent();
             calcEngine = new CalcEngine();
@@ -25,7 +25,7 @@ namespace CalcApp
         private void GetKeyPress(object sender, KeyPressEventArgs e)
         {
             btnEqual.Focus();
-            
+
             switch (e.KeyChar.ToString())
             {
                 case "0":
@@ -159,13 +159,26 @@ namespace CalcApp
 
         /// <summary>
         /// Operator Button Click
-        /// 基本演算(+, -, *, /, =)を処理
+        /// 基本演算(+, -, *, /)を処理
         /// </summary>
         private void ClickOperatorButton(object sender, EventArgs e)
         {
             Button button = sender as Button;
 
             calcEngine.Calculate(button.Text);
+            UpdateResult();
+        }
+
+
+        /// <summary>
+        /// Equal Button Click
+        /// </summary>
+        private void ClickEqualbutton(object sender, EventArgs e)
+        {
+            Button button = sender as Button;
+
+            calcEngine.Calculate(button.Text);
+            calcEngine.Solve();
             UpdateResult();
         }
 
@@ -226,6 +239,9 @@ namespace CalcApp
             UpdateResult();
         }
 
+        /// <summary>
+        /// Click C Button
+        /// </summary>
         private void ClickClearButton(object sender, EventArgs e)
         {
             if (calcEngine.isError)
@@ -280,9 +296,9 @@ namespace CalcApp
         // TxtResult, Label Update Function
         private void UpdateResult()
         {
-            UpdateLabelText();
-
             txtResult.Text = ResultFormat(calcEngine.GetResult());
+
+            UpdateLabelText();
         }
 
 

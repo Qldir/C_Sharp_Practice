@@ -42,6 +42,9 @@ namespace CalcApp
             sign = "+";
             isDecimal = false;
             isWait = false;
+            isError = false;
+            isGrandTotal = false;
+            isMemory = false;
         }
 
 
@@ -84,7 +87,7 @@ namespace CalcApp
         /// <param name="numValue">Double Type</param>
         public void AppendNum(double numValue)
         {
-            AppendNumAfterWait();
+            PrepareAppend();
 
             if (String.IsNullOrEmpty(input))
             {
@@ -111,7 +114,7 @@ namespace CalcApp
         /// <param name="numValue">Input Number Value</param>arithmetic
         public void AppendNum(string numValue)
         {
-            AppendNumAfterWait();
+            PrepareAppend();
 
             if(String.IsNullOrEmpty(input)){
                 input = "0";
@@ -128,9 +131,8 @@ namespace CalcApp
 
 
         /// <summary>
-        /// !isDecimal AND Convert.ToDecimal(input) == 0
+        /// Check if input is zero.
         /// </summary>
-        /// <returns></returns>
         private bool IsZeroValue()
         {
             return !isDecimal && Convert.ToDecimal(input) == 0;
@@ -145,7 +147,7 @@ namespace CalcApp
         /// </summary>
         public void AppendDecimal()
         {
-            AppendNumAfterWait();
+            PrepareAppend();
 
             if (isDecimal)
             {
@@ -156,19 +158,19 @@ namespace CalcApp
             {
                 input = "0.";
                 isDecimal = true;
+                return;
             }
-            else
-            {
-                input += ".";
-                isDecimal = true;
-            }
+
+            input += ".";
+            isDecimal = true;
         }
 
 
         /// <summary>
-        /// if(isWait) { isWait = false; input = String.Empty; }
+        /// Check if new input state
+        /// 新しい入力を受ける状況なのか確認してclear
         /// </summary>
-        private void AppendNumAfterWait()
+        private void PrepareAppend()
         {
             if (operation.Equals("="))
             {
@@ -186,20 +188,34 @@ namespace CalcApp
 
 
         /// <summary>
-        /// Arithmetic Operation
+        /// Calculate
         /// Event Method : ClickOperatorButton
-        /// 基本演算(+, -, *, /, =)を処理するメソッド
-        /// ÷,×, -, +, =
+        /// 基本演算(+, -, *, /)を処理するメソッド
+        /// ÷,×, -, +
         /// </summary>
-        /// <param name="operatorType">演算(+, -, *, /, =)タイプ</param>
+        /// <param name="operatorType">演算(+, -, *, /)タイプ</param>
         public void Calculate(string operatorType)
         {
 
-            //--------------------------------------------
+            if (!IsPrepareCalculate(operatorType))
+            {
+                return;
+            }
+
+            //Arithmetic Operation
+            CalculateOperation(operatorType);
+
+            lastInput = input;
+            isWait = true;
+        }
+
+
+        private bool IsPrepareCalculate(string operatorType)
+        {
             if (isWait)
             {
                 operation = operatorType;
-                return;
+                return false;
             }
 
             if (String.IsNullOrEmpty(input))
@@ -213,36 +229,41 @@ namespace CalcApp
                 lastInput = input;
                 isWait = true;
                 operation = operatorType;
-                return;
-            }
-            //---------------------------------------
 
+                return false;
+            }
+
+            return true;
+        }
+
+
+        /// <summary>
+        /// Arithmetic Operation
+        /// 基本演算(+, -, *, /)を処理するメソッド
+        /// </summary>
+        private void CalculateOperation(string operatorType)
+        {
             switch (operation)
             {
                 case "+":
+                    PrepareOperation();
                     recentResult = Convert.ToDecimal(lastInput) + Convert.ToDecimal(input);
                     break;
                 case "-":
+                    PrepareOperation();
                     recentResult = Convert.ToDecimal(lastInput) - Convert.ToDecimal(input);
                     break;
                 case "×":
                     recentResult = Convert.ToDecimal(lastInput) * Convert.ToDecimal(input);
                     break;
                 case "÷":
-                    if(Convert.ToDecimal(input) == 0)
+                    if (Convert.ToDecimal(input) == 0)
                     {
                         recentResult = 0;
                         isError = true;
                         break;
                     }
                     recentResult = Convert.ToDecimal(lastInput) / Convert.ToDecimal(input);
-                    break;
-                case "=":
-                    recentResult = Convert.ToDecimal(input);
-                    //Add GT
-                    break;
-                default:
-                    Console.WriteLine("Invalid Parameter Value");
                     break;
             }
 
@@ -251,24 +272,106 @@ namespace CalcApp
                 sign = "-";
             }
 
-            input = Convert.ToString(recentResult);
-
-            //小数点フォーマット適用
-            ApplyDecimalPattern();
-
             operation = operatorType;
 
-            if (operation.Equals("="))
+            input = Convert.ToString(recentResult);
+
+            //input小数点フォーマット適用
+            ApplyDecimalPattern();
+        }
+
+
+        /// <summary>
+        /// Check the values to calculate
+        /// +- 演算前に桁超過を防止する切り捨て処理
+        /// 演算される二つの値の一番長い整数桁と、小数点以下桁を加えて
+        /// 10桁を超過する場合は長い小数点を持った数の桁を切り捨てる
+        /// 例 : 10-0.000000001   ->    10-0.00000000
+        /// </summary>
+        private void PrepareOperation()
+        {
+            int integerLength;
+            int decimalLength;
+            int totalLength;
+            int deleteLength;
+
+            //  numA : 1
+            //  numB : 0
+            int deleteTarget = 0;
+
+
+            integerLength =
+                CheckIntegerLength(lastInput) >= CheckIntegerLength(input)
+                ? CheckIntegerLength(lastInput) : CheckIntegerLength(input);
+
+            if (CheckDecimalLength(lastInput) >= CheckDecimalLength(input))
             {
-                lastInput = String.Empty;
-                isWait = false;
-                return;
+                decimalLength = CheckDecimalLength(lastInput);
+                deleteTarget = 1;
+            }
+            else
+            {
+                decimalLength = CheckDecimalLength(input);
             }
 
-            lastInput = input;
+            totalLength = integerLength + decimalLength;
 
-            isWait = true;
+            if (totalLength > 10)
+            {
+                deleteLength = totalLength - 10;
 
+                if (deleteTarget == 1)
+                {
+                    lastInput = lastInput.Remove(lastInput.Length - 1, 1);
+                }
+                else
+                {
+                    input = input.Remove(input.Length - 1, 1);
+                }
+            }
+        }
+
+
+        private int CheckIntegerLength(string number)
+        {
+            number = number.Replace("-", "");
+
+            bool isDecimalCheck = (number.IndexOf(".") != -1);
+
+            if (isDecimalCheck)
+            {
+                return number.IndexOf(".");
+            }
+
+            return number.Length;
+        }
+
+        private int CheckDecimalLength(string number)
+        {
+            int decimalLength = 0;
+
+            bool isDecimalCheck = (number.IndexOf(".") != -1);
+
+            if (isDecimalCheck)
+            {
+                decimalLength = number.Length - (number.IndexOf(".") + 1);
+            }
+
+            return decimalLength;
+        }
+
+
+        
+
+        //TODO: GT機能追加
+        /// <summary>
+        /// Equal Operation
+        /// Event Method : ClickEqualButton
+        /// </summary>
+        public void Solve()
+        {
+            lastInput = String.Empty;
+            isWait = false;
         }
 
 

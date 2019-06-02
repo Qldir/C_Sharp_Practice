@@ -1,6 +1,6 @@
 ﻿namespace CalcApp
 {
-    partial class CalcForm
+    partial class BasicCalcForm
     {
         /// <summary>
         /// 必要なデザイナー変数です。
@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(CalcForm));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(BasicCalcForm));
             this.txtResult = new System.Windows.Forms.RichTextBox();
             this.btnMemClear = new System.Windows.Forms.Button();
             this.btnMemRead = new System.Windows.Forms.Button();
@@ -279,7 +279,7 @@
             this.btnEqual.ForeColor = System.Drawing.SystemColors.ControlText;
             this.btnEqual.Name = "btnEqual";
             this.btnEqual.UseVisualStyleBackColor = false;
-            this.btnEqual.Click += new System.EventHandler(this.ClickOperatorButton);
+            this.btnEqual.Click += new System.EventHandler(this.ClickEqualbutton);
             // 
             // btnMns
             // 
@@ -440,7 +440,7 @@
             resources.ApplyResources(this.pnlClear, "pnlClear");
             this.pnlClear.Name = "pnlClear";
             // 
-            // CalcForm
+            // BasicCalcForm
             // 
             resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -450,7 +450,7 @@
             this.Controls.Add(this.pnlBackGround);
             this.Controls.Add(this.pnlBtn);
             this.KeyPreview = true;
-            this.Name = "CalcForm";
+            this.Name = "BasicCalcForm";
             this.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.GetKeyPress);
             this.pnlBackGround.ResumeLayout(false);
             this.pnlBtn.ResumeLayout(false);
